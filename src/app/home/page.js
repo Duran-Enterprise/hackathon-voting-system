@@ -21,7 +21,7 @@ export default function Home() {
         })
             .then((result) => result.json())
             .then((response) => {
-                const { user, pending, message } = response;
+                const { user, message } = response;
                 console.log(response);
 
                 // If the user is not a daedalus member, maredirect sila sa landing page.
