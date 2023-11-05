@@ -67,13 +67,6 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
 
-            - name: Extract commit messages
-              id: commit-messages
-              run: |
-                  COMMIT_MESSAGES=$(git log --format=%B main..HEAD)
-                  echo "::set-output name=messages::$COMMIT_MESSAGES"
-              shell: bash
-
             - name: Create Pull Request
               id: pr
               uses: peter-evans/create-pull-request@v3
@@ -85,6 +78,6 @@ jobs:
                   title: |
                       Automated Pull Request
                   body: |
-                      This pull request was automatically generated based on the following commit messages:
-
-                      ${{ steps.commit-messages.outputs.messages }}
+                      This pull request was automatically generated from the 'main' branch to 'production'.
+                      Latest commit:
+                      ${{ github.event.head_commit.message }}
