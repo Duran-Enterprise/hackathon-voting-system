@@ -1,0 +1,12 @@
+import type { DefaultResponse } from '$lib/types';
+
+/**
+ * Generates a response using the provided DefaultResponse object.
+ *
+ * This does nothing but ensure that the response is in the correct format.
+ * @param {DefaultResponse} response - The response object to generate.
+ * @return {DefaultResponse} The generated response.
+ */
+export function responseGenerator(response: DefaultResponse): DefaultResponse {
+	return response;
+}
