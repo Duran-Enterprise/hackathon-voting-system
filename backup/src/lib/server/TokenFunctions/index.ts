@@ -1,5 +1,5 @@
 /**
- * Verifies a token of a given type.
+ * Verifies the authenticity of the token thru Discord API and returns the username.
  *
  * @param {string | undefined} tokenType - The type of the token.
  * @param {string | undefined} accessToken - The access token to be verified.
