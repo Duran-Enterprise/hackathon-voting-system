@@ -7,7 +7,7 @@ on:
         branches: ['main']
 
 jobs:
-    test:
+    unitTest:
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -22,7 +22,7 @@ jobs:
             - name: Install Dependencies
               run: npm install
             - name: Run Tests
-              run: npm test
+              run: npm run test:unit
 
     lint:
         runs-on: ubuntu-latest
