@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Hackathon Voting System Checks
 
 on:
     push:
@@ -57,3 +57,30 @@ jobs:
               run: npm install
             - name: Format code with Prettier
               run: npm run format:check
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Extract commit messages
+              id: commit-messages
+              run: |
+                  COMMIT_MESSAGES=$(git log --format=%B origin/main..HEAD)
+                  echo "::set-output name=messages::$COMMIT_MESSAGES"
+              shell: bash
+
+            - name: Create Pull Request
+              id: pr
+              uses: peter-evans/create-pull-request@v3
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  branch: feature/automated-pr
+                  commit-message: |
+                      Automated PR
+                  title: |
+                      Automated Pull Request
+                  body: |
+                      This pull request was automatically generated based on the following commit messages:
+
+                      ${{ steps.commit-messages.outputs.messages }}
