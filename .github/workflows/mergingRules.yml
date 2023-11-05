@@ -70,7 +70,7 @@ jobs:
             - name: Extract commit messages
               id: commit-messages
               run: |
-                  COMMIT_MESSAGES=$(git log --format=%B origin/main..HEAD)
+                  COMMIT_MESSAGES=$(git log --format=%B main..HEAD)
                   echo "::set-output name=messages::$COMMIT_MESSAGES"
               shell: bash
 
