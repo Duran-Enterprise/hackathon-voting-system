@@ -39,3 +39,6 @@ next-env.d.ts
 # If you want to create a file that shouldn't be uploaded
 # add .temp. to the file. example: sample.temp.js
 *.temp.*
+
+# Backup
+.svelte-kit

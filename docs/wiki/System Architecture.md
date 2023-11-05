@@ -1,14 +1,14 @@
 # System Design
 
--   [System Design](#system-design)
-    -   [Storytelling System Architecture](#storytelling-system-architecture)
-        -   [User Requirements:](#user-requirements)
-        -   [Technology Stack:](#technology-stack)
-        -   [Frontend Routes:](#frontend-routes)
-        -   [Backend Routes:](#backend-routes)
-        -   [Architecture Components:](#architecture-components)
-        -   [User Flow:](#user-flow)
-    -   [Technical Design](#technical-design)
+- [System Design](#system-design)
+  - [Storytelling System Architecture](#storytelling-system-architecture)
+    - [User Requirements:](#user-requirements)
+    - [Technology Stack:](#technology-stack)
+    - [Frontend Routes:](#frontend-routes)
+    - [Backend Routes:](#backend-routes)
+    - [Architecture Components:](#architecture-components)
+    - [User Flow:](#user-flow)
+  - [Technical Design](#technical-design)
 
 ## Storytelling System Architecture
 
@@ -117,4 +117,11 @@
 
 ## Technical Design
 
-![System Design](../assets/system-architecture.png)
+![System Design](../assets/system-architecture.png "asdasa")
+
+
+<details>
+<summary> <h1?> YEP</h1></summary>
+
+LOLS
+</details>
