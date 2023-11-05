@@ -2,19 +2,11 @@ name: Node.js CI
 
 on:
     push:
-        branches: ["main"]
+        branches: ['main']
     pull_request:
-        branches: ["main"]
+        branches: ['main']
 
 jobs:
-    start:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Start Workflow
-              run: echo "Starting Node.js CI workflow..."
-            - name: Daedalus
-              run: echo "Daedalus for the win!"
-
     test:
         runs-on: ubuntu-latest
         strategy:
@@ -26,7 +18,7 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: "npm"
+                  cache: 'npm'
             - name: Install Dependencies
               run: npm install
             - name: Run Tests
@@ -43,7 +35,7 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: "npm"
+                  cache: 'npm'
             - name: Install Dependencies
               run: npm install
             - name: Lint code with ESLint
@@ -60,8 +52,8 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: "npm"
+                  cache: 'npm'
             - name: Install Dependencies
               run: npm install
             - name: Format code with Prettier
-              run: npm run format
+              run: npm run format:check
