@@ -117,11 +117,4 @@
 
 ## Technical Design
 
-![System Design](../assets/system-architecture.png "asdasa")
-
-
-<details>
-<summary> <h1?> YEP</h1></summary>
-
-LOLS
-</details>
+![System Design](../assets/system-architecture.png "System Design")

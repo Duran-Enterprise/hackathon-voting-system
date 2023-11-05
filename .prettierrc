@@ -3,6 +3,5 @@
     "singleQuote": true,
     "tabWidth": 4,
     "useTabs": false,
-    "bracketSameLine": true,
-    "ignorePath": "/backup"
+    "bracketSameLine": true
 }
