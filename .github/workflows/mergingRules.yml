@@ -58,6 +58,7 @@ jobs:
             - name: Format code with Prettier
               run: npm run format:check
     deploy:
+        needs: [unitTest, lint, format]
         runs-on: ubuntu-latest
         permissions:
             contents: write
