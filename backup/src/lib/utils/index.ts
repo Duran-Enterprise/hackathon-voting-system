@@ -1,4 +1,5 @@
 import type { DefaultResponse } from '$lib/types';
+import type { Cookies } from '@sveltejs/kit';
 
 /**
  * Generates a response using the provided DefaultResponse object.
@@ -9,4 +10,14 @@ import type { DefaultResponse } from '$lib/types';
  */
 export function responseGenerator(response: DefaultResponse): DefaultResponse {
 	return response;
+}
+
+export function deleteCookies(cookies: Cookies) {
+	try {
+		cookies.delete('accessToken');
+		cookies.delete('tokenType');
+		cookies.delete('user');
+	} catch (err) {
+		//
+	}
 }

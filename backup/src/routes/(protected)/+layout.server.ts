@@ -5,7 +5,6 @@ import type { LayoutServerLoad } from './$types';
 export const load: LayoutServerLoad = async ({ cookies }) => {
 	const accessToken = cookies.get('accessToken');
 	const tokenType = cookies.get('tokenType');
-	const username = cookies.get('username');
 
 	if (!accessToken) {
 		throw redirect(302, '/login');
@@ -18,6 +17,6 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 	}
 
 	return {
-		username: username
+		verifiedUser: verifiedUser
 	};
 };

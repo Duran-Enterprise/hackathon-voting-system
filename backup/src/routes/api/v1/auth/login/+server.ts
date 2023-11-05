@@ -4,9 +4,9 @@ import { json } from '@sveltejs/kit';
 
 export const POST = async ({ request, cookies }) => {
 	const { accessToken, tokenType } = await request.json();
-	const username = await verifyToken(tokenType, accessToken);
+	const verifiedUser = await verifyToken(tokenType, accessToken);
 
-	if (!username) {
+	if (!verifiedUser) {
 		return json(
 			responseGenerator({
 				status: 'fail',
@@ -19,25 +19,28 @@ export const POST = async ({ request, cookies }) => {
 		secure: true,
 		httpOnly: true,
 		sameSite: 'strict',
-		path: '/'
+		path: '/',
+		maxAge: 60 * 60
 	});
 	cookies.set('tokenType', tokenType, {
 		secure: true,
 		httpOnly: true,
 		sameSite: 'strict',
-		path: '/'
+		path: '/',
+		maxAge: 60 * 60
 	});
-	cookies.set('username', username, {
+	cookies.set('user', JSON.stringify(verifiedUser), {
 		secure: true,
 		httpOnly: true,
 		sameSite: 'strict',
-		path: '/'
+		path: '/',
+		maxAge: 60 * 60
 	});
 	return json(
 		responseGenerator({
 			status: 'success',
 			data: {
-				username
+				verifiedUser
 			},
 			message: 'Successfully authenticated'
 		})
