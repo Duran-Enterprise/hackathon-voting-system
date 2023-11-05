@@ -59,6 +59,7 @@ jobs:
               run: npm run format:check
     deploy:
         runs-on: ubuntu-latest
+
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
@@ -75,7 +76,7 @@ jobs:
               uses: peter-evans/create-pull-request@v3
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
-                  branch: feature/automated-pr
+                  branch: production
                   commit-message: |
                       Automated PR
                   title: |
