@@ -39,7 +39,7 @@
 
 ### Backend Routes:
 
-1. **POST** `/api/v1/auth/login`
+1. **GET** `/api/v1/auth/login`
    - **Purpose:** Decide whether to redirect the user back to `/login` or to `/home`.
    - **Request Parameters:** 
      - `access_token` (string): Token from [Discord OAuth2.0 API](https://discord.com/developers/docs/topics/oauth2).
