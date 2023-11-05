@@ -33,3 +33,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.env
+
+# If you want to create a file that shouldn't be uploaded
+# add .temp. to the file. example: sample.temp.js
+*.temp.*
