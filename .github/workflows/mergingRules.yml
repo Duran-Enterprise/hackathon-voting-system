@@ -1,83 +1,90 @@
 name: Hackathon Voting System Checks
 
 on:
-    push:
-        branches: ['main']
-    pull_request:
-        branches: ['main']
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
 
 jobs:
-    unitTest:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node-version: [18.x]
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: 'npm'
-            - name: Install Dependencies
-              run: npm install
-            - name: Run Tests
-              run: npm run test:unit
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    lint:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node-version: [18.x]
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: 'npm'
-            - name: Install Dependencies
-              run: npm install
-            - name: Lint code with ESLint
-              run: npm run lint
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts
 
-    format:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node-version: [18.x]
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: 'npm'
-            - name: Install Dependencies
-              run: npm install
-            - name: Format code with Prettier
-              run: npm run format:check
-    deploy:
-        needs: [unitTest, lint, format]
-        runs-on: ubuntu-latest
-        permissions:
-            contents: write
-            pull-requests: write
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+      - name: Install Playwright
+        run: npx playwright install
 
-            - name: Create Pull Request
-              id: pr
-              uses: peter-evans/create-pull-request@v5
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  branch: production
-                  commit-message: |
-                      Automated PR
-                  title: |
-                      Automated Pull Request
-                  body: |
-                      This pull request was automatically generated from the 'main' branch to 'production'.
-                      Latest commit:
-                      ${{ github.event.head_commit.message }}
+      - name: Run Tests
+        run: npm run test
+
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Lint code with ESLint
+        run: npm run lint
+
+  format:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Format code with Prettier
+        run: npm run prettier
+
+  deploy:
+    needs: [tests, lint, format]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Pull Request
+        id: pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: production
+          commit-message: |
+            Automated PR
+          title: |
+            Automated Pull Request
+          body: |
+            This pull request was automatically generated from the 'main' branch to 'production'.
+            Latest commit:
+            ${{ github.event.head_commit.message }}
