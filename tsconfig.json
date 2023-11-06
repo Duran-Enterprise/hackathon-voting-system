@@ -11,10 +11,10 @@
 		"strict": true,
 		"baseUrl": ".",
 		"paths": {
-			"@/components/*": ["./src/lib/components/*"],
-			"@/server/*": ["./src/lib/server/*"],
-			"@/styles/*": ["./src/lib/styles/*"],
-			"@/utils/*": ["./src/lib/utils/*"],
+			"@components/*": ["./src/lib/components/*"],
+			"@server/*": ["./src/lib/server/*"],
+			"@styles/*": ["./src/lib/styles/*"],
+			"@utils/*": ["./src/lib/utils/*"],
 			"@/types/*": ["./src/lib/types/*"]
 		}
 	}

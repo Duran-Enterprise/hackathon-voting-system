@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { DiscordUser } from '@/types/index';
-
 	export let user: DiscordUser;
 </script>
 
