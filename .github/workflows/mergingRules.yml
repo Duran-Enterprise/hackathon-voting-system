@@ -20,9 +20,13 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
             - name: Install Dependencies
-              run: cd ./NextJS && npm install
+              run: |
+                  cd NextJS
+                  npm install
             - name: Run Tests
-              run: npm run test:unit
+              run: |
+                  cd NextJS
+                  npm run test:unit
 
     lint:
         runs-on: ubuntu-latest
@@ -37,9 +41,13 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
             - name: Install Dependencies
-              run: cd ./NextJS && npm install
+              run: |
+                  cd NextJS
+                  npm install
             - name: Lint code with ESLint
-              run: npm run lint
+              run: |
+                  cd NextJS
+                  npm run lint
 
     format:
         runs-on: ubuntu-latest
@@ -54,9 +62,13 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
             - name: Install Dependencies
-              run: cd ./NextJS && npm install
+              run: |
+                  cd NextJS
+                  npm install
             - name: Format code with Prettier
-              run: npm run format:check
+              run: |
+                  cd NextJS
+                  npm run format:check
     deploy:
         needs: [unitTest, lint, format]
         runs-on: ubuntu-latest
