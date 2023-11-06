@@ -2,9 +2,9 @@ name: Hackathon Voting System Checks
 
 on:
     push:
-        branches: ['main']
+        branches: ["main"]
     pull_request:
-        branches: ['main']
+        branches: ["main"]
 
 jobs:
     unitTest:
@@ -18,9 +18,9 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: 'npm'
+                  cache: "npm"
             - name: Install Dependencies
-              run: npm install
+              run: cd ./NextJS && npm install
             - name: Run Tests
               run: npm run test:unit
 
@@ -35,9 +35,9 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: 'npm'
+                  cache: "npm"
             - name: Install Dependencies
-              run: npm install
+              run: cd ./NextJS && npm install
             - name: Lint code with ESLint
               run: npm run lint
 
@@ -52,9 +52,9 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: 'npm'
+                  cache: "npm"
             - name: Install Dependencies
-              run: npm install
+              run: cd ./NextJS && npm install
             - name: Format code with Prettier
               run: npm run format:check
     deploy:
