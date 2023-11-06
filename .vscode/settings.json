@@ -13,7 +13,6 @@
 		"postcss.config.ts": true,
 		"svelte.config.js": true,
 		"playwright.config.ts": true,
-		"postcss.config.js": true,
-		"tailwind.config.js": true
+		"postcss.config.js": true
 	}
 }
