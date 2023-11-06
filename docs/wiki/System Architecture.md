@@ -21,7 +21,7 @@
 
 ### Technology Stack:
 
-- Frontend: [NEXT.js](https://nextjs.org/docs)
+- Frontend: [Sveltekit](https://svelte.dev/docs)
 - UI Prototyping: [Figma](https://figma.com/)
 - Authentication: [Discord OAuth2.0 API](https://discord.com/developers/docs/topics/oauth2)
 - Authorization: [NextAuth.js](https://next-auth.js.org/)
