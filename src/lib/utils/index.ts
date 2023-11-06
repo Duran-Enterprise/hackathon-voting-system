@@ -1,4 +1,5 @@
-import type { DefaultResponse } from '@/types/index';
+import { openCreatePollModal, openVotePollModal } from '$lib/stores';
+import type { DefaultResponse, Modals } from '@/types/index';
 import type { Cookies } from '@sveltejs/kit';
 
 /**
@@ -19,5 +20,38 @@ export function deleteCookies(cookies: Cookies) {
 		cookies.delete('user');
 	} catch (err) {
 		//
+	}
+}
+
+export function toggleModal(modalName: Modals) {
+	switch (modalName) {
+		case 'createPoll':
+			return openCreatePollModal.update((value) => !value);
+		case 'VotePoll':
+			return openVotePollModal.update((value) => !value);
+		default:
+			return;
+	}
+}
+
+export function openModal(modalName: Modals) {
+	switch (modalName) {
+		case 'createPoll':
+			return openCreatePollModal.set(true);
+		case 'VotePoll':
+			return openVotePollModal.set(true);
+		default:
+			return;
+	}
+}
+
+export function closeModal(modalName: Modals) {
+	switch (modalName) {
+		case 'createPoll':
+			return openCreatePollModal.set(false);
+		case 'VotePoll':
+			return openVotePollModal.set(false);
+		default:
+			return;
 	}
 }

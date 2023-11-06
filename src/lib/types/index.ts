@@ -21,3 +21,13 @@ export type DiscordUser = {
 	premium_type: number;
 	public_flags: number;
 };
+
+export type Poll = {
+	id: number;
+	pollDescription: string;
+	choices: string[];
+};
+export enum Modals {
+	CreatePoll = 'createPoll',
+	VotePoll = 'VotePoll'
+}

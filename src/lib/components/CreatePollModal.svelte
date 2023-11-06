@@ -1,6 +1,11 @@
 <script lang="ts">
 	import trashIcon from '$lib/assets/trash-icon.svg';
+	import disabledTrashIcon from '$lib/assets/disabled-trash-icon.svg';
+
 	import { openCreatePollModal } from '$lib/stores';
+	import { Modals } from '../types';
+	import ModalFooter from './ModalFooter.svelte';
+
 	let createPollForm: HTMLFormElement;
 	let pollDescription = '';
 	const today = new Date();
@@ -8,7 +13,7 @@
 
 	let startDate = formatDate(today);
 	let endDate = formatDate(sevenDaysLater);
-
+	const thisModal = Modals.CreatePoll;
 	$: {
 		if (endDate < startDate) {
 			endDate = startDate;
@@ -20,18 +25,6 @@
 
 	function formatDate(date: Date) {
 		return date.toISOString().split('T')[0];
-	}
-	function createPoll() {}
-
-	function cancel() {
-		if (createPollForm) {
-			createPollForm.reset();
-			closeModal();
-		}
-	}
-
-	function closeModal() {
-		openCreatePollModal.set(false);
 	}
 
 	function addNewOption() {
@@ -47,14 +40,9 @@
 	}
 </script>
 
-<div
-	id="createPollModal"
-	class={`fixed inset-0 flex items-center justify-center z-50 ${
-		$openCreatePollModal ? 'block' : 'hidden'
-	}`}
->
-	<form bind:this={createPollForm} class="w-96 bg-darkBlack p-6 rounded-lg shadow-lg">
-		<h2 class="text-2xl font-semibold mb-4">Create a Poll</h2>
+<div class={$openCreatePollModal ? 'modalContainer' : 'modalContainerClosed'}>
+	<form bind:this={createPollForm} class="modalForm">
+		<h2 class="modalHeading">Create a Poll</h2>
 		<div class="form-control" title="Enter the description of the poll">
 			<label for="description" class="label label-text">Poll Description</label>
 			<textarea
@@ -103,7 +91,11 @@
 						disabled={choices.length <= 2}
 						on:click={() => removeOption(i)}
 					>
-						<img src={trashIcon} alt="Delete Option" title="Delete Option" />
+						<img
+							src={choices.length <= 2 ? disabledTrashIcon : trashIcon}
+							alt="Delete Option"
+							title="Delete Option"
+						/>
 					</button>
 				</div>
 			{/each}
@@ -112,19 +104,12 @@
 			</button>
 		</div>
 
-		<div class="mt-6 flex justify-end">
-			<button
-				type="button"
-				class="px-4 py-2 text-white rounded-lg"
-				title="Cancel the poll creation"
-				on:click={cancel}>Cancel</button
-			>
-			<button
-				type="submit"
-				title="Create the poll"
-				class="ml-2 px-4 py-2 bg-buttonColor text-white rounded"
-				on:click={createPoll}>Create</button
-			>
-		</div>
+		<ModalFooter
+			cancelTitle="Cancel the poll creation"
+			submitTitle="Create the poll"
+			submit="Create poll"
+			{thisModal}
+			form={createPollForm}
+		/>
 	</form>
 </div>

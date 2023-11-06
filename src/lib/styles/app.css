@@ -30,3 +30,22 @@ a {
 label {
 	@apply text-gray-400;
 }
+.modalHeading {
+	@apply text-2xl font-semibold mb-4;
+}
+.modalContainerClosed {
+	@apply fixed inset-0 flex items-center justify-center z-50 hidden;
+}
+.modalContainer {
+	@apply fixed inset-0 flex items-center justify-center z-50;
+}
+.modalForm {
+	@apply w-96 bg-darkBlack p-6 rounded-lg shadow-lg;
+}
+.form-control:has(> label > input[type='radio']:checked) {
+	@apply bg-lightGreen rounded;
+}
+.form-control > label:has(> input[type='radio']:checked) > span {
+	color: white;
+	font-weight: bold;
+}
