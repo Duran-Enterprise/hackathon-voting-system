@@ -5,6 +5,8 @@ import ViteAliases from 'vite-tsconfig-paths';
 export default defineConfig({
 	plugins: [sveltekit(), ViteAliases()],
 	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
+		include: ['src/**/*.{test,spec}.{js,ts}'],
+		environment: 'jsdom',
+		reporters: ['verbose']
 	}
 });
