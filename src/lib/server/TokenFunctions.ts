@@ -68,7 +68,6 @@ export async function verifyDiscordMember(
 				authorization: `${tokenType} ${accessToken}`
 			}
 		}).then((result) => result.json());
-		console.log({ user, message });
 		if (message === 'Unknown Guild') {
 			return null;
 		}

@@ -10,7 +10,6 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 	}
 
 	const verifiedUser = verifyToken(token);
-	console.log({ verifiedUser });
 	if (!verifiedUser) {
 		throw redirect(302, '/login');
 	}

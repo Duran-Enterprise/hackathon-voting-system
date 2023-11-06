@@ -8,7 +8,6 @@ export const load: PageServerLoad = async ({ cookies }) => {
 		return {};
 	}
 	const verifiedUser = verifyToken(token);
-	console.log({ verifiedUser });
 	if (verifiedUser !== null) {
 		throw redirect(302, '/home');
 	}

@@ -16,7 +16,6 @@
 		})
 			.then(async (response) => {
 				const data = await response.json();
-				console.log(data);
 				if (data.status === 'fail') {
 					messageFromServer = data.message;
 					goto('/login');

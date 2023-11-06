@@ -36,7 +36,6 @@
 			return;
 		}
 		choices = choices.filter((_, i) => i !== index);
-		console.log(choices);
 	}
 </script>
 
