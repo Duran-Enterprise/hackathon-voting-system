@@ -3,7 +3,6 @@
 	"files.exclude": {
 		".prettierrc": true,
 		".prettierignore": true,
-		".gitignore": true,
 		".parcelrc": true,
 		".npmrc": true,
 		"node_modules": true,

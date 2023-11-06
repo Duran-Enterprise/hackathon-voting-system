@@ -3,21 +3,20 @@ import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
-	const accessToken = cookies.get('accessToken');
-	const tokenType = cookies.get('tokenType');
+	const token = cookies.get('token');
 
-	if (!accessToken) {
+	if (!token) {
 		throw redirect(302, '/login');
 	}
 
-	const verifiedUser = await verifyToken(tokenType, accessToken);
-
+	const verifiedUser = verifyToken(token);
+	console.log({ verifiedUser });
 	if (!verifiedUser) {
 		throw redirect(302, '/login');
 	}
 
 	return {
-		verifiedUser: verifiedUser
+		verifiedUser: verifiedUser.user
 	};
 };
 

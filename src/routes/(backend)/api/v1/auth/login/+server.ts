@@ -1,10 +1,11 @@
-import { verifyToken } from '@server/TokenFunctions';
+import type { TokenPayload } from '@/types/index';
+import { signToken, verifyDiscordMember } from '@server/TokenFunctions';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { responseGenerator } from '@utils/index';
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	const { accessToken, tokenType } = await request.json();
-	const verifiedUser = await verifyToken(tokenType, accessToken);
+	const verifiedUser = await verifyDiscordMember(tokenType, accessToken);
 
 	if (!verifiedUser) {
 		return json(
@@ -16,27 +17,17 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		);
 	}
 
-	cookies.set('accessToken', accessToken, {
-		secure: true,
+	const payload: TokenPayload = {
+		user: verifiedUser
+	};
+	const token = signToken(payload);
+	cookies.set('token', token, {
+		path: '/',
 		httpOnly: true,
 		sameSite: 'strict',
-		path: '/',
-		maxAge: 60 * 60
+		secure: true
 	});
-	cookies.set('tokenType', tokenType, {
-		secure: true,
-		httpOnly: true,
-		sameSite: 'strict',
-		path: '/',
-		maxAge: 60 * 60
-	});
-	cookies.set('user', JSON.stringify(verifiedUser), {
-		secure: true,
-		httpOnly: true,
-		sameSite: 'strict',
-		path: '/',
-		maxAge: 60 * 60
-	});
+
 	return json(
 		responseGenerator({
 			status: 'success',

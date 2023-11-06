@@ -31,3 +31,19 @@ export enum Modals {
 	CreatePoll = 'createPoll',
 	VotePoll = 'VotePoll'
 }
+
+export const OFFICIAL_ISSUER = 'DDuran19';
+export type ISSUER = 'DDuran19';
+export const TOKEN_EXPIRATION = '1h';
+
+export type TokenPayload = {
+	user: DiscordUser;
+};
+export type TokenInfo = TokenPayload & {
+	iat: number;
+	exp: number;
+	iss: ISSUER;
+};
+
+const DAEDALUS_SERVER_ID = '1150126011036487723';
+export const IS_DAEDALUS_MEMBER_VERIFICATION_LINK = `https://discord.com/api/users/@me/guilds/${DAEDALUS_SERVER_ID}/member`;
