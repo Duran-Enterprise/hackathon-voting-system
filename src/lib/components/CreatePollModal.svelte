@@ -3,7 +3,6 @@
 	import disabledTrashIcon from '$lib/assets/disabled-trash-icon.svg';
 
 	import { openCreatePollModal } from '$lib/stores';
-	import { closeModal } from '@utils/index';
 	import { Modals } from '../types';
 	import ModalFooter from './ModalFooter.svelte';
 
@@ -27,7 +26,6 @@
 	function formatDate(date: Date) {
 		return date.toISOString().split('T')[0];
 	}
-	function createPoll() {}
 
 	function addNewOption() {
 		choices = [...choices, ''];
