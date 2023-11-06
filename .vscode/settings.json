@@ -1,3 +1,19 @@
 {
-    "css.customData": ["./.vscode/css-data.json"]
+	"css.customData": ["./.vscode/css-data.json"],
+	"files.exclude": {
+		".prettierrc": true,
+		".prettierignore": true,
+		".gitignore": true,
+		".parcelrc": true,
+		".npmrc": true,
+		"node_modules": true,
+		".eslintignore": true,
+		".eslintrc.cjs": true,
+		"package-lock.json": true,
+		"postcss.config.ts": true,
+		"svelte.config.js": true,
+		"playwright.config.ts": true,
+		"postcss.config.js": true,
+		"tailwind.config.js": true
+	}
 }
