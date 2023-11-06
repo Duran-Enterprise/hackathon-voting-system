@@ -5,6 +5,6 @@ import { Login } from '../../components/global/Login';
 describe('Login Component', () => {
     it('should render Login component', () => {
         render(<Login />);
-        expect(screen.getByText('Login')).toBeDefined();
+        expect(screen.getByText('Login via Discord')).toBeDefined();
     });
 });

@@ -1,5 +1,4 @@
-'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // TODO: Remove these links here and use environment in the future.
 export const Login = () => {
@@ -8,7 +7,6 @@ export const Login = () => {
 
     return (
         <>
-            <h1>Login</h1>
             <a href={DEV_REDIRECT_LINK}> Login via Discord</a>
         </>
     );
