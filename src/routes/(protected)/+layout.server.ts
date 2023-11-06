@@ -20,3 +20,5 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 		verifiedUser: verifiedUser
 	};
 };
+
+export const csr = true;

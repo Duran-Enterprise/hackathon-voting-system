@@ -4,9 +4,9 @@
 	export let data: LayoutServerData;
 </script>
 
-<div class="drawer lg:drawer-open">
+<div class="drawer lg:drawer-open h-screen">
 	<input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-	<div class="drawer-content flex flex-col items-center justify-center">
+	<div class="drawer-content flex flex-col items-center">
 		<label
 			for="my-drawer-2"
 			class="btn btn-square drawer-button lg:hidden btn-ghost fixed left-4 top-2"
