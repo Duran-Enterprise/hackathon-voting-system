@@ -20,11 +20,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Install Playwright
-        run: npx playwright install
-
       - name: Install Dependencies
         run: npm install
+
+      - name: Install Playwright
+        run: npx playwright install
 
       - name: Run Tests
         run: npm run test
@@ -42,11 +42,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Install Playwright
-        run: npx playwright install
-
       - name: Install Dependencies
         run: npm install
+
+      - name: Install Playwright
+        run: npx playwright install
 
       - name: Lint code with ESLint
         run: npm run lint
@@ -64,11 +64,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Install Playwright
-        run: npx playwright install
-
       - name: Install Dependencies
         run: npm install
+
+      - name: Install Playwright
+        run: npx playwright install
 
       - name: Format code with Prettier
         run: npm run prettier
