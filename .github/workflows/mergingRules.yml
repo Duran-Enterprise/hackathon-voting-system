@@ -7,7 +7,7 @@ on:
     branches: ['main']
 
 jobs:
-  unitTest:
+  tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,7 +22,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Run Tests
-        run: npm run test:unit
+        run: npm run test
 
   lint:
     runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
       - name: Format code with Prettier
         run: npm run format:check
   deploy:
-    needs: [unitTest, lint, format]
+    needs: [tests, lint, format]
     runs-on: ubuntu-latest
     permissions:
       contents: write
