@@ -10,7 +10,6 @@
 		".eslintrc.cjs": true,
 		"package-lock.json": true,
 		"postcss.config.ts": true,
-		"svelte.config.js": true,
 		"playwright.config.ts": true,
 		"postcss.config.js": true
 	}
