@@ -1,5 +1,7 @@
 <script lang="ts">
 	import trashIcon from '$lib/assets/trash-icon.svg';
+	import disabledTrashIcon from '$lib/assets/disabled-trash-icon.svg';
+
 	import { openCreatePollModal } from '$lib/stores';
 	let createPollForm: HTMLFormElement;
 	let pollDescription = '';
@@ -103,7 +105,11 @@
 						disabled={choices.length <= 2}
 						on:click={() => removeOption(i)}
 					>
-						<img src={trashIcon} alt="Delete Option" title="Delete Option" />
+						<img
+							src={choices.length <= 2 ? disabledTrashIcon : trashIcon}
+							alt="Delete Option"
+							title="Delete Option"
+						/>
 					</button>
 				</div>
 			{/each}
