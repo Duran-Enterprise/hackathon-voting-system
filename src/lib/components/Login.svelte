@@ -23,11 +23,12 @@
 			class="text-center text-white block mt-2 mb-10"
 			href={DAEDALUS_SERVER_INVITE}
 			title="Join us now!"
+			target="_blank"
 		>
 			Still not in our community? Join here.
 		</a>
 
-		<a href={DAEDALUS_SERVER_INVITE} title="Join us now!">
+		<a href={DAEDALUS_SERVER_INVITE} title="Join us now!" target="_blank">
 			<img
 				src={loginBanner}
 				alt="Join us now!"
