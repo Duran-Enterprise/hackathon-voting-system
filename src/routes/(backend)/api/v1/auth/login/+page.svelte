@@ -1,6 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import background from '$lib/assets/background.webp';
 	let messageFromServer = '';
 	onMount(async () => {
 		const fragment = new URLSearchParams(window.location.hash.slice(1));
@@ -31,9 +32,9 @@
 </script>
 
 <div
-	class="min-h-screen flex items-center justify-center bg-gradient-to-b from-indigo-500 to-indigo-900"
+	class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-darkBlack via-gray-900 to-stone-900"
 >
-	<div class="bg-white p-8 rounded-lg shadow-lg w-96 space-y-4 text-center">
+	<div class="modalForm p-8 rounded-lg shadow-lg w-96 space-y-4 text-center">
 		<span class="loading loading-bars loading-lg" />
 		<h1 class="text-4xl font-semibold">Authenticating...</h1>
 		<p class="text-gray-600">You will be redirected to the new page shortly.</p>

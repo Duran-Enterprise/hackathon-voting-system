@@ -19,7 +19,7 @@
 			Continue with Discord</a
 		>
 		<a
-			class="text-center text-white block mt-2 mb-10"
+			class="text-center text-white block mt-2 mb-20"
 			href={DAEDALUS_SERVER_INVITE}
 			title="Join us now!"
 			target="_blank"
@@ -31,7 +31,7 @@
 			<img
 				src={loginBanner}
 				alt="Join us now!"
-				class="mt-10 absolute bottom-[-15%] left-0 rounded-bl-lg rounded-br-lg"
+				class="mt-10 absolute bottom-[0] left-0 rounded-bl-lg rounded-br-lg"
 			/></a
 		>
 	</div>
