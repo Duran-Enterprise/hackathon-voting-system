@@ -46,4 +46,5 @@ export type TokenInfo = TokenPayload & {
 };
 
 const DAEDALUS_SERVER_ID = '1150126011036487723';
+export const DAEDALUS_SERVER_INVITE = 'https://discord.gg/daedalusdev';
 export const IS_DAEDALUS_MEMBER_VERIFICATION_LINK = `https://discord.com/api/users/@me/guilds/${DAEDALUS_SERVER_ID}/member`;

@@ -2,5 +2,13 @@
 	import Navbar from '@components/layout/Navbar.svelte';
 </script>
 
-<Navbar />
-<slot />
+<div>
+	<Navbar />
+	<slot />
+</div>
+
+<style>
+	div {
+		min-height: calc(100vh - 64px);
+	}
+</style>
