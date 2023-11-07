@@ -41,6 +41,7 @@ label {
 }
 .modalForm {
 	@apply w-96 bg-darkBlack p-6 rounded-lg shadow-lg;
+	box-shadow: rgba(167, 213, 243, 0.19) 0px 10px 20px, rgba(167, 213, 243, 0.23) 0px 6px 6px;
 }
 .form-control:has(> label > input[type='radio']:checked) {
 	@apply bg-lightGreen rounded;

@@ -4,7 +4,7 @@
 	export let data: LayoutServerData;
 </script>
 
-<div class="drawer lg:drawer-open h-screen">
+<div class="drawer lg:drawer-open h-screen bg-darkBlack">
 	<input id="sidebar" type="checkbox" class="drawer-toggle" />
 	<div class="drawer-content flex flex-col items-center">
 		<label

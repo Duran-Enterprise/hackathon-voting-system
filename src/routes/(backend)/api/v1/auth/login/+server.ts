@@ -1,4 +1,4 @@
-import type { TokenPayload } from '@/types/index';
+import { TOKEN_EXPIRATION, type TokenPayload } from '@/types/index';
 import { signToken, verifyDiscordMember } from '@server/TokenFunctions';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { responseGenerator } from '@utils/index';
@@ -25,7 +25,8 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		path: '/',
 		httpOnly: true,
 		sameSite: 'strict',
-		secure: true
+		secure: true,
+		maxAge: TOKEN_EXPIRATION
 	});
 
 	return json(

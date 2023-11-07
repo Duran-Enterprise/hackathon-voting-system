@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { DiscordUser } from '@/types/index';
+	import { getAvatarLink } from '@utils/index';
 	export let user: DiscordUser;
 </script>
 
@@ -9,10 +10,7 @@
 		<h1 class="my-5 text-center">Cast Away</h1>
 		<div class="avatar my-4">
 			<div class="w-24 rounded mx-auto">
-				<img
-					src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp?size=300`}
-					alt="Discord Avatar"
-				/>
+				<img src={getAvatarLink(user)} alt="Discord Avatar" />
 			</div>
 		</div>
 		<h4 class="text-center uppercase mb-4">{user.username}</h4>

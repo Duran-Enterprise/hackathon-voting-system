@@ -26,6 +26,8 @@ export type Poll = {
 	id: number;
 	pollDescription: string;
 	choices: string[];
+	startDate: Date;
+	endDate: Date;
 };
 export enum Modals {
 	CreatePoll = 'createPoll',
@@ -34,7 +36,7 @@ export enum Modals {
 
 export const OFFICIAL_ISSUER = 'DDuran19';
 export type ISSUER = 'DDuran19';
-export const TOKEN_EXPIRATION = '1h';
+export const TOKEN_EXPIRATION = 3600;
 
 export type TokenPayload = {
 	user: DiscordUser;
