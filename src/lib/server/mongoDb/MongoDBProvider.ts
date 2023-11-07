@@ -105,6 +105,22 @@ class UsersDB {
 			});
 		}
 	}
+	async findAllUsers(): Promise<DefaultResponse> {
+		try {
+			const result = await this.users.find({}).toArray();
+			return responseGenerator({
+				status: 'success',
+				message: 'Found',
+				data: { result }
+			});
+		} catch (error) {
+			return responseGenerator({
+				status: 'fail',
+				message: 'Something went wrong',
+				error: { error }
+			});
+		}
+	}
 }
 
 /**
