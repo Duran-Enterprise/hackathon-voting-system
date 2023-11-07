@@ -5,7 +5,6 @@
 	import { DAEDALUS_SERVER_INVITE } from '../types';
 </script>
 
-<!-- <a href={getRedirectLink()} role="button">Login via Discord</a> -->
 <section class="flex justify-center items-center w-full mt-20">
 	<div class="modalForm relative">
 		<h2 class=" text-center text-white">Logo</h2>
