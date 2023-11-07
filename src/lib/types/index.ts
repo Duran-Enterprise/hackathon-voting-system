@@ -22,12 +22,18 @@ export type DiscordUser = {
 	public_flags: number;
 };
 
+export type Choice = {
+	choice: string;
+	votes: number;
+};
+
 export type Poll = {
 	id: number;
 	pollDescription: string;
-	choices: string[];
+	choices: Choice[];
 	startDate: Date;
 	endDate: Date;
+	voters: string[];
 };
 export enum Modals {
 	CreatePoll = 'createPoll',

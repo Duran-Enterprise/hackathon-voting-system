@@ -70,68 +70,80 @@ export function getAvatarLink(user: DiscordUser, size: number = 300) {
 export function getRandomQuote() {
 	const quotes = [
 		{
-			text: 'Genius is one percent inspiration and ninety-nine percent perspiration.',
-			author: 'Thomas Edison, type.fit'
+			text: 'The strongest people are not those who show strength in front of us, but those who win battles we know nothing about.',
+			author: 'Jonathan Harnisch'
 		},
 		{
-			text: 'You can observe a lot just by watching.',
-			author: 'Yogi Berra, type.fit'
+			text: 'Cast away your doubts and fears. Embrace the journey, for it may lead to greatness.',
+			author: 'Unknown'
 		},
 		{
-			text: 'A house divided against itself cannot stand.',
-			author: 'Abraham Lincoln, type.fit'
+			text: 'In the darkest moments, when you feel cast away from hope, remember that the stars shine brightest in the darkest skies.',
+			author: 'Shannon L. Alder'
 		},
 		{
-			text: 'Difficulties increase the nearer we get to the goal.',
-			author: 'Johann Wolfgang von Goethe, type.fit'
+			text: 'The world may cast you away, but your inner strength can light your path towards a new dawn.',
+			author: 'Unknown'
 		},
 		{
-			text: 'Fate is in your hands and no one elses',
-			author: 'Byron Pulsifer, type.fit'
+			text: 'Like a pebble cast into a pond, your ripples of resilience can create waves of inspiration for others.',
+			author: 'Unknown'
 		},
 		{
-			text: 'Be the chief but never the lord.',
-			author: 'Lao Tzu, type.fit'
+			text: 'To be cast away is to be given an opportunity to discover new horizons within yourself.',
+			author: 'Unknown'
 		},
 		{
-			text: 'Nothing happens unless first we dream.',
-			author: 'Carl Sandburg, type.fit'
+			text: "Don't be defined by the circumstances that cast you away; be defined by your determination to rise above them.",
+			author: 'Unknown'
 		},
 		{
-			text: 'Well begun is half done.',
-			author: 'Aristotle, type.fit'
+			text: "When you're cast away, you have a chance to rewrite your own story and become the hero of your own journey.",
+			author: 'Unknown'
 		},
 		{
-			text: 'Life is a learning experience, only if you learn.',
-			author: 'Yogi Berra'
+			text: "Embrace being cast away as a chance to redefine your life's narrative and prove your resilience.",
+			author: 'Unknown'
 		},
 		{
-			text: 'Self-complacency is fatal to progress.',
-			author: 'Margaret Sangster, type.fit'
+			text: 'Cast away the old, and let the winds of change carry you to new shores of opportunity and growth.',
+			author: 'Unknown'
 		},
 		{
-			text: 'Peace comes from within. Do not seek it without.',
-			author: 'Buddha, type.fit'
+			text: 'When life casts you away, find the strength to build a new path and let your story inspire others.',
+			author: 'Unknown'
 		},
 		{
-			text: 'What you give is what you get.',
-			author: 'Byron Pulsifer, type.fit'
+			text: 'Every castaway has the potential to become a captain of their own destiny with unwavering determination.',
+			author: 'Unknown'
 		},
 		{
-			text: 'We can only learn to love by loving.',
-			author: 'Iris Murdoch, type.fit'
+			text: 'The world may cast you away, but your inner light can guide you back to a place of belonging and purpose.',
+			author: 'Unknown'
 		},
 		{
-			text: 'Life is change. Growth is optional. Choose wisely.',
-			author: 'Karen Clark, type.fit'
+			text: "Don't let being cast away define your worth; let your resilience define your path to success.",
+			author: 'Unknown'
 		},
 		{
-			text: "You'll see it when you believe it.",
-			author: 'Wayne Dyer, type.fit'
+			text: 'Being cast away is the beginning of a remarkable journey where you discover your true strength and purpose.',
+			author: 'Unknown'
 		},
 		{
-			text: 'Today is the tomorrow we worried about yesterday.',
-			author: 'type.fit'
+			text: 'In the wilderness of being cast away, you can find the strength to create a path that leads you to your dreams.',
+			author: 'Unknown'
+		},
+		{
+			text: 'The stars in the sky were once cast away in the vast universe, and now they shine as beacons of hope and inspiration.',
+			author: 'Unknown'
+		},
+		{
+			text: 'Being cast away is an opportunity to rebuild your life, write a new story, and inspire others to do the same.',
+			author: 'Unknown'
+		},
+		{
+			text: 'When life casts you away, use the experience to cast a new vision for your future and inspire those who follow you.',
+			author: 'Unknown'
 		}
 	];
 	const randomIndex = Math.floor(Math.random() * quotes.length);

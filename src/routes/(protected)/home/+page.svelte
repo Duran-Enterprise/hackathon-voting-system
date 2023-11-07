@@ -23,9 +23,13 @@
 
 <SectionTitle sectionName="Home" />
 
-<div class="card w-full bg-base-100 shadow-xl flex flex-row p-0">
-	<figure class="p-8">
-		<img class="rounded-full" src={getAvatarLink(data.verifiedUser, 320)} alt="Avatar" />
+<div class="card w-full bg-base-100 shadow-xl flex flex-col md:flex-row max-w-3xl mx-auto">
+	<figure class="p-8 min-w-[320px]">
+		<img
+			class="rounded-full aspect-square"
+			src={getAvatarLink(data.verifiedUser, 320)}
+			alt="Avatar"
+		/>
 	</figure>
 	<div class="card-body m-0 flex justify-around">
 		<h2 class="card-title">
@@ -43,7 +47,7 @@
 </div>
 <SectionTitle sectionName="Your votes" />
 <ul class="list-disc pl-4 mr-auto">
-	{#each data.polls as poll (poll.id)}
+	{#each data.userPolls as poll (poll.id)}
 		<li class="text-gray-700 mb-2">
 			<p><a href="results?id={poll.id}">{poll.pollDescription}</a></p>
 		</li>

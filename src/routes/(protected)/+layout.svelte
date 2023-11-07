@@ -4,7 +4,7 @@
 	export let data: LayoutServerData;
 </script>
 
-<div class="drawer lg:drawer-open h-screen bg-darkBlack">
+<div class="drawer lg:drawer-open h-screen fixed inset-0 overflow-auto bg-darkBlack">
 	<input id="sidebar" type="checkbox" class="drawer-toggle" />
 	<div class="drawer-content flex flex-col items-center">
 		<label
@@ -24,7 +24,7 @@
 				/></svg
 			></label
 		>
-		<section class="flex flex-col items-center justify-center mt-10">
+		<section class="flex flex-col items-center justify-center mt-10 w-full px-10">
 			<slot />
 		</section>
 	</div>
