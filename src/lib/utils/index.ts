@@ -55,9 +55,10 @@ export function closeModal(modalName: Modals) {
 }
 
 const DEV_SERVER = 'http://localhost:5173';
-const PROD_SERVER = 'https://hackathon-voting-system.pages.dev';
+const PROD_SERVER = import.meta.env.VITE_PROD_SERVER;
 export function getRedirectLink() {
 	const REDIRECT_URI = import.meta.env.VITE_ON_DEV === 'true' ? DEV_SERVER : PROD_SERVER;
+
 	const redirectLink = `https://discord.com/api/oauth2/authorize?client_id=1170585102821105805&redirect_uri=${REDIRECT_URI}%2Fapi%2Fv1%2Fauth%2Flogin&response_type=token&scope=identify%20guilds.members.read`;
 	return redirectLink;
 }
