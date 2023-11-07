@@ -1,6 +1,7 @@
 import { responseGenerator } from '@utils/index';
 import { DATABASE } from '@server/databaseFunctions';
 import type { Collection, ObjectId } from 'mongodb';
+import { ObjectId as ConvertToObjectId } from 'mongodb';
 import type { newPoll, newUser, newVote, pollDBSchema, userDBSchema } from '@server/schema';
 import type { DefaultResponse } from '@/types/index';
 
@@ -86,6 +87,9 @@ class UsersDB {
 	 */
 	async updateStatus(_id: ObjectId | string, active: boolean): Promise<DefaultResponse> {
 		try {
+			if (typeof _id === 'string') {
+				_id = new ConvertToObjectId(_id);
+			}
 			const result = await this.users.updateOne({ _id }, { $set: { active } });
 			const message = result ? 'Updated' : 'Not Updated';
 			return responseGenerator({
@@ -160,6 +164,10 @@ class PollsDB {
 	 */
 	async findPoll(_id?: ObjectId | string): Promise<DefaultResponse> {
 		try {
+			if (typeof _id === 'string') {
+				_id = new ConvertToObjectId(_id);
+			}
+
 			const result = await this.polls.findOne({ _id });
 			const message = result ? 'Found' : 'Not Found';
 			return responseGenerator({
