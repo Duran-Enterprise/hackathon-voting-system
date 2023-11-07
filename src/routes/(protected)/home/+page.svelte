@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Modals } from '@/types/index';
 	import CreatePollModal from '@components/CreatePollModal.svelte';
-	import PageTitle from '@components/layout/PageTitle.svelte';
+	import SectionTitle from '@components/layout/SectionTitle.svelte';
 	import { getAvatarLink, getRandomQuote, openModal } from '@utils/index';
 	import type { LayoutServerData } from '../$types';
 	export let data: LayoutServerData;
@@ -21,7 +21,7 @@
 	const quote = getRandomQuote();
 </script>
 
-<PageTitle pageName="Home" />
+<SectionTitle sectionName="Home" />
 
 <div class="card w-full bg-base-100 shadow-xl flex flex-row p-0">
 	<figure class="p-8">
@@ -41,12 +41,11 @@
 		</div>
 	</div>
 </div>
-
-<h2 class="text-2xl font-semibold mb-6">Your votes</h2>
-<ul class="list-disc pl-4">
+<SectionTitle sectionName="Your votes" />
+<ul class="list-disc pl-4 mr-auto">
 	{#each data.polls as poll (poll.id)}
 		<li class="text-gray-700 mb-2">
-			<p>{poll.pollDescription}</p>
+			<p><a href="results?id={poll.id}">{poll.pollDescription}</a></p>
 		</li>
 	{/each}
 </ul>
