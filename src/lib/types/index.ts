@@ -9,7 +9,7 @@ export type DefaultResponse = {
 };
 
 export type ZodErrorResponse = {
-	errors: Array<{ [key: string]: string }>;
+	errors: { [key: string]: string };
 };
 
 export type DiscordUser = {
