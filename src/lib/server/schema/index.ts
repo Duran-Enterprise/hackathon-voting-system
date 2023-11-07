@@ -3,7 +3,7 @@ import type { ObjectId } from 'mongodb';
 export type UsernameDB = string;
 
 export type userDBSchema = {
-	_id: ObjectId;
+	_id: ObjectId | string;
 	username: UsernameDB;
 	active: boolean;
 };
@@ -16,7 +16,7 @@ export type ChoiceDB = {
 };
 
 export type pollDBSchema = {
-	_id: ObjectId;
+	_id: ObjectId | string;
 	pollDescription: string;
 	choices: ChoiceDB[];
 	startDate: Date;

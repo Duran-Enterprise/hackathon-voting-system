@@ -84,7 +84,7 @@ class UsersDB {
 	 * - If the update is not successful, it includes a "Not Updated" message.
 	 * - If there's an error, it includes a failure message and details about the error.
 	 */
-	async updateStatus(_id: ObjectId, active: boolean): Promise<DefaultResponse> {
+	async updateStatus(_id: ObjectId | string, active: boolean): Promise<DefaultResponse> {
 		try {
 			const result = await this.users.updateOne({ _id }, { $set: { active } });
 			const message = result ? 'Updated' : 'Not Updated';
@@ -158,7 +158,7 @@ class PollsDB {
 	 * - If the poll is not found, it includes a "Not Found" message.
 	 * - If there's an error, it includes a failure message and details about the error.
 	 */
-	async findPoll(_id?: ObjectId): Promise<DefaultResponse> {
+	async findPoll(_id?: ObjectId | string): Promise<DefaultResponse> {
 		try {
 			const result = await this.polls.findOne({ _id });
 			const message = result ? 'Found' : 'Not Found';
@@ -201,6 +201,23 @@ class PollsDB {
 			return responseGenerator({
 				status: 'success',
 				message: message,
+				data: { result }
+			});
+		} catch (error) {
+			return responseGenerator({
+				status: 'fail',
+				message: 'Something went wrong',
+				error: { error }
+			});
+		}
+	}
+
+	async findAllPolls(): Promise<DefaultResponse> {
+		try {
+			const result = await this.polls.find({}).toArray();
+			return responseGenerator({
+				status: 'success',
+				message: 'Found',
 				data: { result }
 			});
 		} catch (error) {
