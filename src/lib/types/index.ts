@@ -8,6 +8,10 @@ export type DefaultResponse = {
 	error?: object;
 };
 
+export type ZodErrorResponse = {
+	errors: Array<{ [key: string]: string }>;
+};
+
 export type DiscordUser = {
 	id: string;
 	username: string;
