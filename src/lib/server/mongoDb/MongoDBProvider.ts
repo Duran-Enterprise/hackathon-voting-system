@@ -105,6 +105,14 @@ class UsersDB {
 			});
 		}
 	}
+	/**
+	 * Finds and retrieves all users from the database.
+	 *
+	 * @returns {Promise<DefaultResponse>} A promise that resolves to a response object indicating the status of the operation.
+	 * - If users are found, it includes a success message and data about the retrieved users.
+	 * - If no users are found, it includes a "Not Found" message.
+	 * - If there's an error, it includes a failure message and details about the error.
+	 */
 	async findAllUsers(): Promise<DefaultResponse> {
 		try {
 			const result = await this.users.find({}).toArray();
@@ -200,6 +208,30 @@ class PollsDB {
 		}
 	}
 	/**
+	 * Finds and retrieves all polls from the database.
+	 *
+	 * @returns {Promise<DefaultResponse>} A promise that resolves to a response object indicating the status of the operation.
+	 * - If polls are found, it includes a success message and data about the retrieved polls.
+	 * - If no polls are found, it includes a "Not Found" message.
+	 * - If there's an error, it includes a failure message and details about the error.
+	 */
+	async findAllPolls(): Promise<DefaultResponse> {
+		try {
+			const result = await this.polls.find({}).toArray();
+			return responseGenerator({
+				status: 'success',
+				message: 'Found',
+				data: { result }
+			});
+		} catch (error) {
+			return responseGenerator({
+				status: 'fail',
+				message: 'Something went wrong',
+				error: { error }
+			});
+		}
+	}
+	/**
 	 * Adds a voter to a specific choice in the selected poll collection.
 	 *
 	 * @param {newVote} newVote - The information about the vote, including the poll's _id, choice, and the username of the voter.
@@ -225,23 +257,6 @@ class PollsDB {
 			return responseGenerator({
 				status: 'success',
 				message: message,
-				data: { result }
-			});
-		} catch (error) {
-			return responseGenerator({
-				status: 'fail',
-				message: 'Something went wrong',
-				error: { error }
-			});
-		}
-	}
-
-	async findAllPolls(): Promise<DefaultResponse> {
-		try {
-			const result = await this.polls.find({}).toArray();
-			return responseGenerator({
-				status: 'success',
-				message: 'Found',
 				data: { result }
 			});
 		} catch (error) {
