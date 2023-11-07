@@ -1,13 +1,14 @@
-import type { ZodErrorResponse } from '@/types/index';
+import type { DefaultResponse, ZodErrorResponse } from '@/types/index';
+import { responseGenerator } from '@utils/index';
 
 /**
- * Generate a ZodErrorResponse from an error object or return the original error.
+ * Generate a response containing error details from an error object or a custom error message.
  *
- * @param {unknown} error - The error object to be transformed.
+ * @param {unknown} error - The error object or a custom error message.
  *
- * @returns {ZodErrorResponse | unknown} An object containing an array of error details, where each detail is represented as an object with key-value pairs, or the original error if it's not an instance of Error.
+ * @returns {DefaultResponse} A response object indicating the status of the operation, including error details if available.
  */
-export function errorGenerator(error: unknown): ZodErrorResponse | unknown {
+export function errorGenerator(error: unknown): DefaultResponse {
 	if (error instanceof Error) {
 		const errors: ZodErrorResponse = { errors: [] };
 		const errorData = JSON.parse(error.message);
@@ -19,7 +20,15 @@ export function errorGenerator(error: unknown): ZodErrorResponse | unknown {
 			errors.errors.push(errorObject);
 		}
 
-		return errors;
+		return responseGenerator({
+			status: 'fail',
+			message: 'Something went wrong',
+			error: errors
+		});
 	}
-	return error;
+	return responseGenerator({
+		status: 'fail',
+		message: 'Something went wrong',
+		error: { error }
+	});
 }

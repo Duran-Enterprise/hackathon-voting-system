@@ -1,19 +1,23 @@
 import type { newPoll } from '@server/schema';
 import { newPollZod } from './ZodSchemas';
 import { errorGenerator } from './ErrorGenerator';
-import type { ZodErrorResponse } from '@/types/index';
-
+import type { DefaultResponse } from '@/types/index';
+import { responseGenerator } from '@utils/index';
 /**
- * Validate a new poll using a Zod schema and return the validated data or an error response.
+ * Validate a new poll using a Zod schema and return a response indicating the validation result.
  *
  * @param {newPoll} newPoll - The new poll data to be validated.
  *
- * @returns {newPoll | ZodErrorResponse | unknown} The validated new poll data if it passes validation, or an error response if validation fails.
+ * @returns {DefaultResponse} A response indicating the validation status and, if successful, includes the validated new poll data. If validation fails, it provides error details in the response.
  */
-export function validateNewPoll(newPoll: newPoll): newPoll | ZodErrorResponse | unknown {
+export function validateNewPoll(newPoll: newPoll): DefaultResponse {
 	try {
 		newPollZod.parse(newPoll);
-		return newPoll;
+		return responseGenerator({
+			status: 'success',
+			message: 'Poll validated successfully',
+			data: newPoll
+		});
 	} catch (error) {
 		return errorGenerator(error);
 	}
