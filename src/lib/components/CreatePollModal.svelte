@@ -42,6 +42,10 @@
 <div class={$openCreatePollModal ? 'modalContainer' : 'modalContainerClosed'}>
 	<form bind:this={createPollForm} class="modalForm">
 		<h2 class="modalHeading">Create a Poll</h2>
+		<div class="form-control" title="This will appear as a heading for your poll">
+			<label for="title" class="label label-text">Poll Title</label>
+			<input id="title" type="text" class="input input-bordered" name="title" />
+		</div>
 		<div class="form-control" title="Enter the description of the poll">
 			<label for="description" class="label label-text">Poll Description</label>
 			<textarea

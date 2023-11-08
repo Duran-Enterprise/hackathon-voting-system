@@ -17,6 +17,7 @@ export type ChoiceDB = {
 
 export type pollDBSchema = {
 	_id: ObjectId | string;
+	title: string;
 	pollDescription: string;
 	choices: ChoiceDB[];
 	startDate: Date;
@@ -29,7 +30,7 @@ export type newPoll = Partial<Omit<pollDBSchema, '_id'>> & {
 
 export type newVote = Omit<
 	pollDBSchema,
-	'pollDescription' | 'startDate' | 'endDate' | 'choices'
+	'pollDescription' | 'startDate' | 'endDate' | 'choices' | 'title'
 > & {
 	choice: string;
 	voter: string;

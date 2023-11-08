@@ -5,7 +5,8 @@
 
 	const samplePoll: Poll = {
 		id: 1,
-		pollDescription: "What's the best framework?",
+		title: 'Framework GOAT',
+		pollDescription: "Framework Goat blah blah.. What's the best framework?",
 		choices: [
 			{ choice: 'React', votes: 0 },
 			{ choice: 'Vue', votes: 0 },

@@ -23,7 +23,7 @@
 		{#each data.polls as poll (poll.id)}
 			<li class="text-gray-700 mb-2">
 				<p>
-					<a href={`polls?id=${poll.id}`} role="button">{poll.pollDescription}</a>
+					<a href={`polls?id=${poll.id}`} role="button">{poll.title}</a>
 				</p>
 			</li>
 		{/each}

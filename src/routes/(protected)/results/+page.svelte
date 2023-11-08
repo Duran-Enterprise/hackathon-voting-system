@@ -24,7 +24,8 @@
 <section class="flex flex-row gap-10">
 	{#each polls as poll (poll.id)}
 		<div class="bg-[#191e24] p-4 rounded-lg shadow-lg my-4">
-			<p class="text-2xl font-semibold text-white mb-4">{poll.pollDescription}</p>
+			<h1 class="text-3xl font-semibold text-white mb-4">{poll.title}</h1>
+			<p class="min-w-[320px] truncate text-white mb-4">{poll.pollDescription}</p>
 
 			{#each poll.choices as choice (choice)}
 				<div class="flex items-center justify-around mb-2 gap-5">
@@ -55,6 +56,9 @@
 
 			<button class="btn mt-4 btn-block" on:click={() => revealAnswer(poll.id)}
 				>Reveal Results</button
+			>
+			<button class="btn btn-block btn-primary" on:click={() => revealAnswer(poll.id)}
+				>See More Details</button
 			>
 		</div>
 	{/each}

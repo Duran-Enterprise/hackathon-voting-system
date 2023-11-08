@@ -6,6 +6,7 @@ export const openVotePollModal = writable(false);
 export const samplePolls: Poll[] = [
 	{
 		id: 1,
+		title: 'Hackathon Poll',
 		pollDescription: 'Who will win this Hackathon?',
 		choices: [
 			{ choice: 'Cast Away', votes: 2 },
@@ -29,6 +30,7 @@ export const samplePolls: Poll[] = [
 	},
 	{
 		id: 2,
+		title: 'Best Framework',
 		pollDescription: "What's the best framework?",
 		choices: [
 			{ choice: 'Svelte', votes: 1 },
@@ -52,6 +54,7 @@ export const samplePolls: Poll[] = [
 	},
 	{
 		id: 3,
+		title: 'Favorite Color',
 		pollDescription: 'What is your favorite color?',
 		choices: [
 			{ choice: 'Red', votes: 2 },

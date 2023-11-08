@@ -49,7 +49,7 @@
 <ul class="list-disc pl-4 mr-auto">
 	{#each data.userPolls as poll (poll.id)}
 		<li class="text-gray-700 mb-2">
-			<p><a href="results?id={poll.id}">{poll.pollDescription}</a></p>
+			<p><a href="results?id={poll.id}">{poll.title}</a></p>
 		</li>
 	{/each}
 </ul>

@@ -33,6 +33,7 @@ export type Choice = {
 
 export type Poll = {
 	id: number;
+	title: string;
 	pollDescription: string;
 	choices: Choice[];
 	startDate: Date;

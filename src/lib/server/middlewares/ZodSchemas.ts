@@ -28,6 +28,7 @@ const pastDate = z.date().refine(
 
 export const newPollZod = z
 	.object({
+		title: z.string().min(5, { message: 'Poll title must be at least 5 characters long' }),
 		pollDescription: z
 			.string()
 			.min(5, { message: 'Poll description must be at least 5 characters long' }),
