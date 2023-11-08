@@ -49,6 +49,6 @@
 		{/each}
 	</ul>
 	<div class={openModal ? 'modalContainer' : 'modalContainerClosed'}>
-		<VotePollModal {poll} />
+		<VotePollModal {poll} username={data.verifiedUser.username} />
 	</div>
 </div>
