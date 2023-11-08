@@ -3,8 +3,8 @@
 	import CreatePollModal from '@components/CreatePollModal.svelte';
 	import SectionTitle from '@components/layout/SectionTitle.svelte';
 	import { getAvatarLink, getRandomQuote, openModal } from '@utils/index';
-	import type { LayoutServerData } from '../$types';
-	export let data: LayoutServerData;
+	import type { PageServerData } from './$types';
+	export let data: PageServerData;
 	const createPoll = Modals.CreatePoll;
 
 	function getGreeting(): string {
@@ -27,7 +27,7 @@
 	<figure class="p-8 min-w-[320px]">
 		<img
 			class="rounded-full aspect-square"
-			src={getAvatarLink(data.verifiedUser, 320)}
+			src={getAvatarLink(data.verifiedUser, 320) || ''}
 			alt="Avatar"
 		/>
 	</figure>
@@ -47,9 +47,9 @@
 </div>
 <SectionTitle sectionName="Your votes" />
 <ul class="list-disc pl-4 mr-auto">
-	{#each data.userPolls as poll (poll.id)}
+	{#each data.userPolls as poll (poll._id)}
 		<li class="text-gray-700 mb-2">
-			<p><a href="results?id={poll.id}">{poll.title}</a></p>
+			<p><a href="results?id={poll._id}">{poll.title}</a></p>
 		</li>
 	{/each}
 </ul>

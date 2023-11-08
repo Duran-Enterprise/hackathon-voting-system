@@ -1,11 +1,15 @@
+import type { ObjectId } from 'mongodb';
+
 export type DefaultResponse = {
 	status: 'success' | 'fail';
 	message?: string;
 	data?: {
 		[key: string]: string | number | boolean | undefined | null | object;
-		count?: number;
 	};
 	error?: object;
+};
+export type DefaultResponseAllPolls = Omit<DefaultResponse, 'data'> & {
+	data: { result: Poll[] };
 };
 
 export type ZodErrorResponse = {
@@ -28,17 +32,16 @@ export type DiscordUser = {
 
 export type Choice = {
 	choice: string;
-	votes: number;
+	voters: string[];
 };
 
 export type Poll = {
-	id: number;
+	_id: string | ObjectId;
 	title: string;
 	pollDescription: string;
 	choices: Choice[];
 	startDate: Date;
 	endDate: Date;
-	voters: string[];
 };
 export enum Modals {
 	CreatePoll = 'createPoll',

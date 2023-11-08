@@ -3,8 +3,7 @@
 	import disabledTrashIcon from '$lib/assets/disabled-trash-icon.svg';
 
 	import { openCreatePollModal } from '$lib/stores';
-	import { Modals } from '../types';
-	import ModalFooter from './ModalFooter.svelte';
+	import { goto } from '$app/navigation';
 
 	let createPollForm: HTMLFormElement;
 	let pollDescription = '';
@@ -13,7 +12,6 @@
 
 	let startDate = formatDate(today);
 	let endDate = formatDate(sevenDaysLater);
-	const thisModal = Modals.CreatePoll;
 	$: {
 		if (endDate < startDate) {
 			endDate = startDate;
@@ -107,12 +105,19 @@
 			</button>
 		</div>
 
-		<ModalFooter
-			cancelTitle="Cancel the poll creation"
-			submitTitle="Create the poll"
-			submit="Create poll"
-			{thisModal}
-			form={createPollForm}
-		/>
+		<div class="mt-6 flex justify-end">
+			<a
+				class="px-4 py-2 text-white rounded-lg cursor-pointer"
+				title="Cancel the poll creation"
+				href="/home"
+				on:click|preventDefault={() => goto('/home')}>Cancel</a
+			>
+			<input
+				type="submit"
+				title="Create the poll"
+				class="ml-2 px-4 py-2 bg-buttonColor text-white rounded cursor-pointer"
+				value="Create poll"
+			/>
+		</div>
 	</form>
 </div>
