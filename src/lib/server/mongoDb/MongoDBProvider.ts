@@ -249,6 +249,11 @@ class PollsDB {
 					'choices.$[choice].voters': voter
 				}
 			};
+			const data = await this.canVote(_id, voter);
+			if (data.status === 'fail') {
+				return data;
+			}
+
 			const arrayFilters = [{ 'choice.choice': choice }];
 
 			const result = await this.polls.updateOne({ _id }, updateOperation, { arrayFilters });
@@ -258,6 +263,56 @@ class PollsDB {
 				status: 'success',
 				message: message,
 				data: { result }
+			});
+		} catch (error) {
+			return responseGenerator({
+				status: 'fail',
+				message: 'Something went wrong',
+				error: { error }
+			});
+		}
+	}
+	/**
+	 * Checks if a user with the specified username can vote in a poll.
+	 *
+	 * @param {ObjectId | string} _id - The unique identifier of the poll.
+	 * @param {string} username - The username of the user to check.
+	 * @returns {Promise<DefaultResponse | (Omit<DefaultResponse, 'data'> & { data: { _id: ObjectId; username: string } })>} A promise that resolves to a response indicating whether the user can vote or not.
+	 */
+	async canVote(
+		_id: ObjectId | string,
+		username: string
+	): Promise<
+		| DefaultResponse
+		| (Omit<DefaultResponse, 'data'> & { data: { _id: ObjectId; username: string } })
+	> {
+		try {
+			if (typeof _id === 'string') {
+				_id = new ConvertToObjectId(_id);
+			}
+			const poll = await this.polls.findOne({ _id });
+			if (!poll) {
+				return responseGenerator({
+					status: 'fail',
+					message: 'Poll Not Found'
+				});
+			}
+			const choices = poll.choices;
+			for (const choice of choices) {
+				if (choice.voters.includes(username)) {
+					return responseGenerator({
+						status: 'fail',
+						message: 'Already Voted'
+					});
+				}
+			}
+			return responseGenerator({
+				status: 'success',
+				message: 'Can Vote',
+				data: {
+					_id,
+					username
+				}
 			});
 		} catch (error) {
 			return responseGenerator({
