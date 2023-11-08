@@ -14,6 +14,24 @@
 			});
 		}
 	}
+	function formatDate(date: Date | string) {
+		if (typeof date === 'string') {
+			date = new Date(date);
+		}
+
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0');
+		const day = String(date.getDate()).padStart(2, '0');
+		return `${month}/${day}/${year}`;
+	}
+	function tooEarly() {
+		if (!poll) return false;
+		return new Date() < new Date(poll?.startDate);
+	}
+	function tooLate() {
+		if (!poll) return false;
+		return new Date() > new Date(poll?.endDate);
+	}
 </script>
 
 {#if !poll}
@@ -73,12 +91,20 @@
 				href="/polls"
 				on:click|preventDefault={() => goto('/polls')}>Cancel</a
 			>
-			<input
+			<button
 				type="submit"
 				title="Submit your vote"
-				class="ml-2 px-4 py-2 bg-buttonColor text-white rounded cursor-pointer"
-				value="submit"
-			/>
+				class={`ml-2 px-4 py-2 bg-buttonColor disabled:bg-gray-500 text-white rounded cursor-pointer`}
+				disabled={tooEarly() || tooLate()}
+			>
+				{#if tooEarly()}
+					<span>Voting Starts on {formatDate(poll.startDate)}</span>
+				{:else if tooLate()}
+					<span>Voting ended last {formatDate(poll.endDate)}</span>
+				{:else}
+					<span>Vote now</span>
+				{/if}
+			</button>
 		</div>
 	</form>
 {/if}

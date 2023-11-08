@@ -303,6 +303,15 @@ class PollsDB {
 					message: 'Poll Not Found'
 				});
 			}
+
+			const currentDate = new Date();
+			if (currentDate < poll.startDate || currentDate > poll.endDate) {
+				return responseGenerator({
+					status: 'fail',
+					message: 'Voting is not allowed at this time'
+				});
+			}
+
 			const choices = poll.choices;
 			for (const choice of choices) {
 				if (choice.voters.includes(username)) {
