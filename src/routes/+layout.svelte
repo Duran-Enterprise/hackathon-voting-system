@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '$lib/styles/app.css';
+	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import background from '$lib/assets/background.webp';
 </script>
 
@@ -8,6 +9,7 @@
 	<meta name="description" content="Voting webapp exclusive for Daedalus discord members" />
 </svelte:head>
 <div class="bg-darkBackground" style="background-image: url({background})">
+	<SvelteToast />
 	<slot />
 </div>
 

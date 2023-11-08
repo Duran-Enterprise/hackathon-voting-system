@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import type { Poll } from '../types';
 
@@ -8,15 +9,15 @@
 {#if !poll}
 	<p>No Data available...</p>
 {:else}
-	<form class="modalForm">
+	<form method="post" action="?/submitVote" use:enhance class="modalForm">
 		<h2 class="modalHeading">Vote for this poll</h2>
-
+		<input hidden type="text" name="pollId" value={poll._id} />
 		<h5 class="text-center my-10">{poll.pollDescription}</h5>
 
 		{#each poll.choices as choice}
 			<div class="form-control">
 				<label class="label cursor-pointer flex justify-start gap-5">
-					<input type="radio" name="pollChoices" class="radio" />
+					<input type="radio" name="choice" class="radio" value={choice.choice} />
 					<span class="label-text">{choice.choice}</span>
 				</label>
 			</div>
