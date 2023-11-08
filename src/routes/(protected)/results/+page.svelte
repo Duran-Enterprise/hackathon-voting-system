@@ -21,7 +21,7 @@
 </script>
 
 <SectionTitle sectionName="Results" />
-<section class="flex flex-row gap-10">
+<section class="flex flex-row gap-10 flex-wrap">
 	{#each polls as poll (poll.id)}
 		<div class="bg-[#191e24] p-4 rounded-lg shadow-lg my-4">
 			<h1 class="text-3xl font-semibold text-white mb-4">{poll.title}</h1>
