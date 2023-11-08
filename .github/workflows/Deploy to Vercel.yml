@@ -23,6 +23,6 @@ jobs:
         run: |
           git remote add deployment https://github.com/DDuran19/castaway-voters
           git fetch deployment
-          git push deployment production:production
+          git push deployment main:main
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
