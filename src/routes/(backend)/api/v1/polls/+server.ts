@@ -10,19 +10,22 @@ export const GET: RequestHandler = async () => {
 	return json(responseGenerator(polls));
 };
 export const POST: RequestHandler = async ({ request }) => {
-	const { pollDescription, choices, startDate, endDate } = await request.json().catch((error) => {
-		return json(
-			responseGenerator({
-				status: 'fail',
-				message: 'something went wrong',
-				error
-			})
-		);
-	});
+	const { pollDescription, choices, startDate, endDate, title } = await request
+		.json()
+		.catch((error) => {
+			return json(
+				responseGenerator({
+					status: 'fail',
+					message: 'something went wrong',
+					error
+				})
+			);
+		});
 	const parsedStartDate = new Date(startDate);
 	const parsedEndDate = new Date(endDate);
 	const newPoll: newPoll = {
 		pollDescription,
+		title,
 		choices,
 		startDate: parsedStartDate,
 		endDate: parsedEndDate
