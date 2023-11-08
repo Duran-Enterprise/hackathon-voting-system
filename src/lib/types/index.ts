@@ -43,6 +43,12 @@ export type Poll = {
 	startDate: Date;
 	endDate: Date;
 };
+
+export type PollWithVoteCount = Poll & {
+	voteCount: number;
+	maxVoteCount: number;
+};
+
 export enum Modals {
 	CreatePoll = 'createPoll',
 	VotePoll = 'VotePoll'
