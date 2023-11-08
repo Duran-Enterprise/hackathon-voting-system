@@ -1,12 +1,21 @@
 <script lang="ts">
-	import { Modals } from '@/types/index';
 	import CreatePollModal from '@components/CreatePollModal.svelte';
 	import SectionTitle from '@components/layout/SectionTitle.svelte';
-	import { getAvatarLink, getRandomQuote, openModal } from '@utils/index';
+	import { getAvatarLink, getRandomQuote } from '@utils/index';
 	import type { PageServerData } from './$types';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	export let data: PageServerData;
-	const createPoll = Modals.CreatePoll;
 
+	let openModal = false;
+	$: newPoll = new URL($page.url).searchParams.get('new');
+	$: {
+		if (newPoll) {
+			openModal = true;
+		} else {
+			openModal = false;
+		}
+	}
 	function getGreeting(): string {
 		const hour = new Date().getHours();
 		if (hour >= 5 && hour < 12) {
@@ -40,7 +49,9 @@
 			<p class="text-sm text-gray-200">{quote.author}</p>
 		</div>
 		<div class="card-actions justify-end">
-			<button class="btn mt-4" on:click={() => openModal(createPoll)}>Create Poll</button>
+			<a href="home?new=true" role="button" class="btn mt-4" on:click={() => goto('home?new=true')}
+				>Create Poll</a
+			>
 			<a class="btn mt-4" href="/polls">Start Voting</a>
 		</div>
 	</div>
@@ -54,4 +65,6 @@
 	{/each}
 </ul>
 
-<CreatePollModal />
+<div class={openModal ? 'modalContainer' : 'modalContainerClosed'}>
+	<CreatePollModal />
+</div>

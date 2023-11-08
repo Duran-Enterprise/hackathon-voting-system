@@ -1,6 +1,6 @@
-import { redirect } from '@sveltejs/kit';
+import { redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import type { DefaultResponseAllPolls } from '@/types/index';
+import type { Choice, DefaultResponseAllPolls, Poll } from '@/types/index';
 
 export const load: PageServerLoad = async ({ fetch, locals }) => {
 	const pollsData: DefaultResponseAllPolls = await fetch('/api/v1/polls').then((res) => res.json());
@@ -16,4 +16,46 @@ export const load: PageServerLoad = async ({ fetch, locals }) => {
 	});
 
 	return { userPolls, verifiedUser };
+};
+
+export const actions: Actions = {
+	createPoll: async ({ request, fetch }) => {
+		const data = Object.fromEntries(
+			await request.formData().catch((error) => {
+				throw redirect(302, `/home?voted=fail&message=${error.message}`);
+			})
+		);
+		let index = 0;
+
+		const poll: Omit<Poll, '_id'> = {
+			pollDescription: data.pollDescription as string,
+			title: data.title as string,
+			choices: [],
+			startDate: new Date(data.startDate as string),
+			endDate: new Date(data.endDate as string)
+		};
+		while (data[`choices${index}`] !== undefined) {
+			const choice: Choice = {
+				choice: data[`choices${index}`] as string,
+				voters: []
+			};
+			poll.choices.push(choice);
+			index++;
+		}
+
+		const result = await fetch('/api/v1/polls', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(poll)
+		}).then((res) => res.json());
+		console.log(poll);
+		console.log(result);
+		if (result.status === 'success') {
+			throw redirect(302, '/home?create=success&message=poll created');
+		}
+
+		throw redirect(302, `/home?create=fail&message=${result.message}`);
+	}
 };

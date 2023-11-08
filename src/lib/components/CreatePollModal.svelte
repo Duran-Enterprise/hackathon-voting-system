@@ -2,12 +2,12 @@
 	import trashIcon from '$lib/assets/trash-icon.svg';
 	import disabledTrashIcon from '$lib/assets/disabled-trash-icon.svg';
 
-	import { openCreatePollModal } from '$lib/stores';
 	import { goto } from '$app/navigation';
+	import { enhance } from '$app/forms';
 
 	let createPollForm: HTMLFormElement;
 	let pollDescription = '';
-	const today = new Date();
+	let today = new Date();
 	const sevenDaysLater = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
 
 	let startDate = formatDate(today);
@@ -37,87 +37,93 @@
 	}
 </script>
 
-<div class={$openCreatePollModal ? 'modalContainer' : 'modalContainerClosed'}>
-	<form bind:this={createPollForm} class="modalForm">
-		<h2 class="modalHeading">Create a Poll</h2>
-		<div class="form-control" title="This will appear as a heading for your poll">
-			<label for="title" class="label label-text">Poll Title</label>
-			<input id="title" type="text" class="input input-bordered" name="title" />
-		</div>
-		<div class="form-control" title="Enter the description of the poll">
-			<label for="description" class="label label-text">Poll Description</label>
-			<textarea
-				id="description"
-				class="textarea textarea-bordered"
-				value={pollDescription}
-				placeholder={`ex. What's the best framework?`}
-			/>
-		</div>
-		<div class="grid grid-cols-2 gap-4">
-			<div class="form-control" title="Enter the start date of this poll">
-				<label for="startDate" class="label label-text">Start Date</label>
-				<input
-					type="date"
-					id="startDate"
-					class="input input-bordered"
-					bind:value={startDate}
-					min={startDate}
-				/>
-			</div>
-			<div class="form-control" title="Enter the end date of this poll">
-				<label for="endDate" class="label label-text">End Date</label>
-				<input
-					type="date"
-					bind:value={endDate}
-					min={startDate}
-					id="endDate"
-					class="input input-bordered"
-				/>
-			</div>
-		</div>
-		<div class="form-control" title="Place the options here for the poll">
-			<label for="options" class="label label-text">Options</label>
-			{#each choices as choice, i}
-				<div class="flex flex-row items-center mb-2">
-					<input
-						id="options"
-						type="text"
-						class=" w-full input input-bordered"
-						bind:value={choice}
-						placeholder={placeholders[i]}
-					/>
-					<button
-						type="button"
-						class="ml-2 text-red-600"
-						disabled={choices.length <= 2}
-						on:click={() => removeOption(i)}
-					>
-						<img
-							src={choices.length <= 2 ? disabledTrashIcon : trashIcon}
-							alt="Delete Option"
-							title="Delete Option"
-						/>
-					</button>
-				</div>
-			{/each}
-			<button type="button" class="" on:click={addNewOption} title="Add new option">
-				+ Add Option
-			</button>
-		</div>
-
-		<div class="mt-6 flex justify-end">
-			<a
-				class="px-4 py-2 text-white rounded-lg cursor-pointer"
-				title="Cancel the poll creation"
-				href="/home"
-				on:click|preventDefault={() => goto('/home')}>Cancel</a
-			>
+<form bind:this={createPollForm} class="modalForm" method="post" action="?/createPoll" use:enhance>
+	<h2 class="modalHeading">Create a Poll</h2>
+	<div class="form-control" title="This will appear as a heading for your poll">
+		<label for="title" class="label label-text">Poll Title</label>
+		<input id="title" type="text" class="input input-bordered" name="title" required />
+	</div>
+	<div class="form-control" title="Enter the description of the poll">
+		<label for="description" class="label label-text">Poll Description</label>
+		<textarea
+			id="pollDescription"
+			name="pollDescription"
+			class="textarea textarea-bordered"
+			value={pollDescription}
+			required
+			placeholder={`ex. What's the best framework?`}
+		/>
+	</div>
+	<div class="grid grid-cols-2 gap-4">
+		<div class="form-control" title="Enter the start date of this poll">
+			<label for="startDate" class="label label-text">Start Date</label>
 			<input
-				type="submit"
-				title="Create the poll"
-				class="ml-2 px-4 py-2 bg-buttonColor text-white rounded cursor-pointer"
-				value="Create poll"
+				type="date"
+				id="startDate"
+				name="startDate"
+				class="input input-bordered"
+				bind:value={startDate}
+				required
+				min={startDate}
 			/>
 		</div>
-	</form>
-</div>
+		<div class="form-control" title="Enter the end date of this poll">
+			<label for="endDate" class="label label-text">End Date</label>
+			<input
+				type="date"
+				bind:value={endDate}
+				min={startDate}
+				required
+				id="endDate"
+				name="endDate"
+				class="input input-bordered"
+			/>
+		</div>
+	</div>
+	<div class="form-control" title="Place the options here for the poll">
+		<label for="options" class="label label-text">Options</label>
+		{#each choices as choice, i}
+			<div class="flex flex-row items-center mb-2">
+				<input
+					id="options"
+					type="text"
+					class=" w-full input input-bordered"
+					bind:value={choice}
+					name={`choices${i}`}
+					required
+					placeholder={placeholders[i]}
+				/>
+				<button
+					type="button"
+					class="ml-2 text-red-600"
+					disabled={choices.length <= 2}
+					on:click={() => removeOption(i)}
+				>
+					<img
+						src={choices.length <= 2 ? disabledTrashIcon : trashIcon}
+						alt="Delete Option"
+						title="Delete Option"
+					/>
+				</button>
+			</div>
+		{/each}
+		<button type="button" class="" on:click={addNewOption} title="Add new option">
+			+ Add Option
+		</button>
+	</div>
+
+	<div class="mt-6 flex justify-end">
+		<a
+			class="px-4 py-2 text-white rounded-lg cursor-pointer"
+			title="Cancel the poll creation"
+			href="/home"
+			on:click|preventDefault={() => goto('/home')}>Cancel</a
+		>
+		<input
+			type="submit"
+			title="Create the poll"
+			class="ml-2 px-4 py-2 bg-buttonColor text-white rounded cursor-pointer"
+			value="Create poll"
+		/>
+	</div>
+</form>
