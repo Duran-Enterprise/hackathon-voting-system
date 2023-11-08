@@ -14,7 +14,7 @@ on:
 jobs:
   main:
     runs-on: ubuntu-latest
-
+    permissions: write-all
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,19 +24,5 @@ jobs:
           git remote add deployment https://github.com/DDuran19/castaway-voters
           git fetch deployment
           git push deployment production:production
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  production:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Push changes to deployment repository (main)
-        run: |
-          git remote add deployment https://github.com/DDuran19/castaway-voters
-          git fetch deployment
-          git push deployment main:main
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
