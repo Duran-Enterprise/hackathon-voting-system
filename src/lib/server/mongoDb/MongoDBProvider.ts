@@ -243,7 +243,13 @@ class PollsDB {
 	 */
 	async addVote(newVote: newVote): Promise<DefaultResponse> {
 		try {
-			const { _id, choice, voter } = newVote;
+			const { choice, voter } = newVote;
+			let { _id } = newVote;
+
+			if (typeof _id === 'string') {
+				_id = new ConvertToObjectId(_id);
+			}
+
 			const updateOperation = {
 				$addToSet: {
 					'choices.$[choice].voters': voter
