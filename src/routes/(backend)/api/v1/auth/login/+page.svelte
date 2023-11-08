@@ -1,7 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import background from '$lib/assets/background.webp';
 	let messageFromServer = '';
 	onMount(async () => {
 		const fragment = new URLSearchParams(window.location.hash.slice(1));
