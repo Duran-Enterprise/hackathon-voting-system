@@ -35,10 +35,12 @@
      overflow-y-auto bg-white dark:bg-darkBlack text-black dark:text-white rounded shadow-md
      "
 	>
-		<h1 class="text-3xl font-bold mb-4 truncate" title={poll.title}>
+		<h1 class="text-3xl font-bold mb-4 text-balance" title={poll.title}>
 			{poll.title}
 		</h1>
-		<p class="text-gray-600 mb-4 truncate" title={poll.pollDescription}>{poll.pollDescription}</p>
+		<p class="text-gray-600 mb-4 text-balance" title={poll.pollDescription}>
+			{poll.pollDescription}
+		</p>
 		<a
 			href="/results"
 			role="button"
@@ -70,7 +72,7 @@
 							style="width: 0%"
 						/>
 						<p
-							class="text-shadow text-white text-lg font-semibold z-10 truncate"
+							class="text-shadow text-white text-lg font-semibold z-10 text-balance"
 							title={choice.choice}
 						>
 							{choice.choice}

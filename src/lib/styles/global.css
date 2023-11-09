@@ -1,3 +1,7 @@
+:root {
+	--darkBlack: #111214;
+}
+
 ::-webkit-scrollbar {
 	width: 8px;
 	opacity: 10%;
@@ -6,21 +10,24 @@
 ::-webkit-scrollbar-track {
 	opacity: 10%;
 	border-radius: 4px;
-	background: #212121;
+	background: var(--darkBlack);
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #212121;
+	background: var(--darkBlack);
 	height: 2px;
 	opacity: 30%;
 	border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #5d5dde;
+	background: #2563eb;
 	height: 4px;
 	opacity: 80%;
 }
 ::-webkit-scrollbar-corner {
-	background: #212121;
+	background: var(--darkBlack);
+}
+.text-balance {
+	text-wrap: balance;
 }
