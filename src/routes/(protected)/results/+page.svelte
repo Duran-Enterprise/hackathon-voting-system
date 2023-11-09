@@ -5,8 +5,14 @@
 	import type { PollWithVoteCount } from '@/types/index';
 	import type { ObjectId } from 'mongodb';
 	import { slide } from 'svelte/transition';
+	import Result from '@components/Result.svelte';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import ModalContainer from '@components/ModalContainer.svelte';
 	export let data: PageServerData;
+	let poll: PollWithVoteCount | undefined;
 	let polls = data.polls;
+	let openModal = false;
 
 	let pollsWithVotes: PollWithVoteCount[] = polls.map((poll) => {
 		const voteCount = poll.choices.reduce((count, choice) => count + choice.voters.length, 0);
@@ -18,7 +24,15 @@
 		}
 		return { ...poll, voteCount, maxVoteCount, choices: shuffledChoices };
 	});
-
+	$: pollId = new URL($page.url).searchParams.get('id');
+	$: {
+		if (pollId) {
+			poll = pollsWithVotes.find((poll) => poll._id === pollId);
+			openModal = true;
+		} else {
+			openModal = false;
+		}
+	}
 	let document: Document;
 	onMount(() => {
 		document = window.document;
@@ -59,9 +73,17 @@
 				{/each}
 			</div>
 
-			<button class="btn mt-4 btn-block hover:btn-primary" on:click={() => revealAnswer(poll._id)}
-				>Reveal Results</button
+			<a
+				class="btn mt-4 btn-block hover:btn-primary"
+				href="results?id={poll._id}"
+				role="button"
+				on:click={() => goto('results?id=' + poll._id)}>Reveal Results</a
 			>
 		</div>
 	{/each}
+	<ModalContainer {openModal} url={'/results'}>
+		{#key pollId}
+			<Result {poll} />
+		{/key}
+	</ModalContainer>
 </section>

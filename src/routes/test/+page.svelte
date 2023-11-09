@@ -1,26 +1,111 @@
 <script lang="ts">
-	import { Modals } from '@/types/index';
-	import CreatePollModal from '@components/CreatePollModal.svelte';
-	import VotePollModal from '@components/VotePollModal.svelte';
-	import { openModal } from '@utils/index';
-	const createPoll = Modals.CreatePoll;
-	const votePoll = Modals.VotePoll;
+	import type { PollWithVoteCount } from '@/types/index';
+	import { onMount } from 'svelte';
+	import { quartInOut } from 'svelte/easing';
+	import { tweened } from 'svelte/motion';
+	export let poll: PollWithVoteCount = {
+		_id: '654a54ac2e23e6337a30545a',
+		title: 'Hackathon - Voting System',
+		pollDescription:
+			'This event is the first Hackathon event of Daedalus. Vote below who do you think should win.',
+		choices: [
+			{
+				choice: 'castAway',
+				voters: ['dduran19', 'dduran19', 'dduran19', 'dduran19', 'dduran19', 'booswaa']
+			},
+			{
+				choice: 'ReactPressPHP',
+				voters: ['dduran19', 'dduran19', 'dduran19']
+			},
+			{
+				choice: "D'Rocketeers",
+				voters: ['dduran19', 'dduran19', 'dduran19', 'dduran19']
+			},
+			{
+				choice: 'MAPEH',
+				voters: ['dduran19']
+			},
+			{
+				choice: 'Team Chibog',
+				voters: ['dduran19', 'dduran19']
+			}
+		],
+		startDate: new Date('2023-11-07T00:00:00.000Z'),
+		endDate: new Date('2023-11-11T00:00:00.000Z'),
+		maxVoteCount: 6,
+		voteCount: 16
+	};
+
+	const widths = poll.choices.map(() =>
+		tweened(0, { duration: 2000, delay: 20, easing: quartInOut })
+	);
+	function updateWidth() {
+		const choices = poll.choices;
+
+		choices.forEach((choice, index) => {
+			widths[index].set((choice.voters.length / poll.maxVoteCount) * 90 + 10);
+		});
+	}
+	onMount(() => {
+		const results = document.querySelectorAll('[data-result]');
+		results.forEach((result, index) => {
+			const element = result as HTMLDivElement;
+			widths[index].subscribe((value) => {
+				element.style.width = `${value}%`;
+			});
+		});
+		updateWidth();
+	});
 </script>
 
-<div
-	class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-darkBlack via-gray-900 to-stone-900"
->
-	<h1>Test</h1>
-	<div class="modalForm p-8 rounded-lg shadow-lg w-96 space-y-4 text-center">
-		<span class="loading loading-bars loading-lg" />
-		<h1 class="text-4xl font-semibold">Authenticating...</h1>
-		<p class="text-gray-600">You will be redirected to the new page shortly.</p>
-		<p class="text-gray-600">Stuck on this page? <a href="/">click here</a>.</p>
+<div class="relative max-w-2xl mx-auto mt-8 p-4 z-0">
+	<div
+		class=" absolute bg-white dark:bg-gray-800 text-black dark:text-white rounded shadow-md z-[-1] inset-0"
+	/>
+	<div class="absolute inset-0 scale-[1.003] z-[-2] customGradient rounded-md" />
+
+	<h1 class="text-3xl font-bold mb-4">{poll.title}</h1>
+	<p class="text-gray-600 mb-4">{poll.pollDescription}</p>
+
+	<div class="flex justify-between mb-4">
+		<div>
+			<p class="text-gray-600 dark:text-gray-300">
+				Start Date: {new Date(poll.startDate).toLocaleDateString()}
+			</p>
+			<p class="text-gray-600 dark:text-gray-300">
+				End Date: {new Date(poll.endDate).toLocaleDateString()}
+			</p>
+		</div>
+		<p class="text-gray-600 dark:text-gray-300">Total Votes: {poll.voteCount}</p>
 	</div>
-	<button class="btn mt-4" on:click={() => openModal(createPoll)}>Create Poll</button>
-	<CreatePollModal />
-	<hr />
-	<button class="btn mt-4" on:click={() => openModal(votePoll)}>Vote Poll</button>
-	<VotePollModal />
-	<hr />
+
+	<ul>
+		{#each poll.choices as choice, index}
+			<li class="border-b py-4 dark:border-gray-600">
+				<div class="relative flex justify-between items-center w-full">
+					<div
+						data-result={index}
+						class="absolute inset-0 -left-4 -z-0 customGradient rounded-ee-md rounded-se-md"
+						style="width: 0%"
+					/>
+					<p class="text-shadow text-white text-lg font-semibold z-10">{choice.choice}</p>
+					<p class="text-shadow text-gray-600 dark:text-gray-300 z-10">
+						Votes: {choice.voters.length}
+					</p>
+				</div>
+
+				<ul class="ml-4">
+					{#each choice.voters as voter}
+						<li class="text-gray-500 dark:text-gray-400">{voter}</li>
+					{/each}
+				</ul>
+			</li>
+		{/each}
+	</ul>
 </div>
+
+<style>
+	.text-shadow {
+		text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.716);
+	}
+</style>

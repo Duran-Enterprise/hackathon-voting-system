@@ -5,6 +5,8 @@
 	import type { Poll } from '@/types/index';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
+	import { goto } from '$app/navigation';
+	import ModalContainer from '@components/ModalContainer.svelte';
 
 	export let data: PageServerData;
 	let poll: Poll | undefined;
@@ -48,7 +50,9 @@
 			</li>
 		{/each}
 	</ul>
-	<div class={openModal ? 'modalContainer' : 'modalContainerClosed'}>
-		<VotePollModal {poll} username={data.verifiedUser.username} />
-	</div>
+	<ModalContainer {openModal} url={'/polls'}>
+		{#key pollId}
+			<VotePollModal {poll} username={data.verifiedUser.username} />
+		{/key}
+	</ModalContainer>
 </div>

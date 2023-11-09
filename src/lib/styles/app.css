@@ -55,3 +55,20 @@ label {
 via-emerald-500 to-emerald-600 dark:from-blue-400
 dark:via-blue-500 dark:to-blue-600;
 }
+.customBorder {
+	background: radial-gradient(circle at 100% 100%, #1f2937 0, #1f2937 5px, transparent 5px) 0% 0%/8px
+			8px no-repeat,
+		radial-gradient(circle at 0 100%, #1f2937 0, #1f2937 5px, transparent 5px) 100% 0%/8px 8px
+			no-repeat,
+		radial-gradient(circle at 100% 0, #1f2937 0, #1f2937 5px, transparent 5px) 0% 100%/8px 8px
+			no-repeat,
+		radial-gradient(circle at 0 0, #1f2937 0, #1f2937 5px, transparent 5px) 100% 100%/8px 8px
+			no-repeat,
+		linear-gradient(#1f2937, #1f2937) 50% 50% / calc(100% - 6px) calc(100% - 16px) no-repeat,
+		linear-gradient(#1f2937, #1f2937) 50% 50% / calc(100% - 16px) calc(100% - 6px) no-repeat,
+		linear-gradient(90deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+	border-radius: 8px;
+	padding: 3px;
+	box-sizing: border-box;
+	height: fit-content;
+}

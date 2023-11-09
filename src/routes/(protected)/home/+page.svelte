@@ -5,6 +5,7 @@
 	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import ModalContainer from '@components/ModalContainer.svelte';
 	export let data: PageServerData;
 
 	let openModal = false;
@@ -65,6 +66,6 @@
 	{/each}
 </ul>
 
-<div class={openModal ? 'modalContainer' : 'modalContainerClosed'}>
+<ModalContainer {openModal} url={'/home'}>
 	<CreatePollModal />
-</div>
+</ModalContainer>
