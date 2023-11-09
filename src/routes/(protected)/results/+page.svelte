@@ -37,7 +37,7 @@
 <section class="flex flex-row gap-10 flex-wrap relative">
 	{#each pollsWithVotes as poll (poll._id)}
 		<div
-			class="bg-[#191e24] p-4 rounded-lg shadow-lg my-4 w-[350px] min-h-[280px] flex flex-col justify-around"
+			class="bg-darkBlack p-4 rounded-lg shadow-lg my-4 w-[350px] min-h-[280px] flex flex-col justify-around"
 			transition:slide={{
 				duration: 300
 			}}

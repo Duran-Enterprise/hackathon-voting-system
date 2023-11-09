@@ -7,7 +7,7 @@ export default {
 				darkBackground: '#212121',
 				accent: '#4ca8a9',
 				buttonColor: '#5d5dde',
-				darkBlack: '#030303',
+				darkBlack: '#111214',
 				lightGray: '#353A40',
 				purple: '#7A52B3',
 				lightGreen: '#00B7BF',

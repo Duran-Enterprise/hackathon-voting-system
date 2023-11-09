@@ -9,7 +9,7 @@
 	<title>Cast Away - Voting webapp for Daedalus</title>
 	<meta name="description" content="Voting webapp exclusive for Daedalus discord members" />
 </svelte:head>
-<div class="bg-darkBackground" style="background-image: url({background})">
+<div class="bg-darkBlack" style="background-image: url({background})">
 	<SvelteToast />
 	<slot />
 </div>

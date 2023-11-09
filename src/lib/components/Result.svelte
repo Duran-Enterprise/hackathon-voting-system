@@ -31,7 +31,7 @@
 <div class="customBorder min-h-[80vh] w-[min(80vw,42rem)]">
 	<div
 		class=" relative w-full h-full max-w-2xl mx-auto p-4 z-0 max-h-[80vh]
-     overflow-y-auto bg-white dark:bg-gray-800 text-black dark:text-white rounded shadow-md
+     overflow-y-auto bg-white dark:bg-darkBlack text-black dark:text-white rounded shadow-md
      "
 	>
 		<h1 class="text-3xl font-bold mb-4 truncate" title={poll.title}>

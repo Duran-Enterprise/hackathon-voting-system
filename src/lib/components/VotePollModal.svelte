@@ -93,14 +93,25 @@
 			>
 			<button
 				type="submit"
-				title="Submit your vote"
+				title={tooEarly()
+					? 'Voting has not started yet'
+					: tooLate()
+					? 'Voting has ended. Click to check results'
+					: 'Vote now'}
 				class={`ml-2 px-4 py-2 bg-buttonColor disabled:bg-gray-500 text-white rounded cursor-pointer`}
 				disabled={tooEarly() || tooLate()}
 			>
 				{#if tooEarly()}
 					<span>Voting Starts on {formatDate(poll.startDate)}</span>
 				{:else if tooLate()}
-					<span>Voting ended last {formatDate(poll.endDate)}</span>
+					<a
+						href={`/results/?id=${poll._id}`}
+						role="button"
+						class="customLink"
+						on:click={() =>
+							goto(`/results/${poll && typeof poll._id === 'string' ? `?id=${poll._id}` : ''}`)}
+						>Voting ended last {formatDate(poll.endDate)}</a
+					>
 				{:else}
 					<span>Vote now</span>
 				{/if}
@@ -108,3 +119,9 @@
 		</div>
 	</form>
 {/if}
+
+<style>
+	.customLink {
+		all: unset;
+	}
+</style>

@@ -33,7 +33,7 @@
 
 <SectionTitle sectionName="Home" />
 
-<div class="card w-full bg-base-100 shadow-xl flex flex-col md:flex-row max-w-3xl mx-auto">
+<div class="card w-full bg-darkBlack shadow-xl flex flex-col md:flex-row max-w-3xl mx-auto">
 	<figure class="p-8 min-w-[320px]">
 		<img
 			class="rounded-full aspect-square"
@@ -45,8 +45,8 @@
 		<h2 class="card-title">
 			Good{getGreeting()}, {data.verifiedUser.username.toUpperCase()}!
 		</h2>
-		<div class="w-full p-4 bg-zinc-600 border-l-4 border-slate-300">
-			<p class="text-2xl italic text-white">{quote.text}</p>
+		<div class="w-full p-4 bg-black border-l-4 border-slate-300">
+			<p class="text-2xl italic text-gray-200 mb-1">{quote.text}</p>
 			<p class="text-sm text-gray-200">{quote.author}</p>
 		</div>
 		<div class="card-actions justify-end">
