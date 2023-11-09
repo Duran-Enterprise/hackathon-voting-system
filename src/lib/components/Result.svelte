@@ -5,13 +5,14 @@
 	import { quartInOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
 	export let poll: PollWithVoteCount;
+	const choices = poll.choices;
+
+	choices.sort((a, b) => b.voters.length - a.voters.length);
 
 	const widths = poll.choices.map(() =>
 		tweened(0, { duration: 2000, delay: 300, easing: quartInOut })
 	);
 	function updateWidth() {
-		const choices = poll.choices;
-
 		choices.forEach((choice, index) => {
 			widths[index].set((choice.voters.length / poll.maxVoteCount) * 90 + 10);
 		});
