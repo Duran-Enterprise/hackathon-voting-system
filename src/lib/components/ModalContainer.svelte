@@ -22,7 +22,7 @@
 
 <div class={openModal ? 'modalContainer relative' : 'modalContainerClosed'}>
 	<a
-		class="absolute inset-0 z-[1]"
+		class="absolute inset-0 z-[1] backdrop-blur-md"
 		href={url}
 		role="button"
 		on:click|preventDefault|stopPropagation={() => goto(url)}
