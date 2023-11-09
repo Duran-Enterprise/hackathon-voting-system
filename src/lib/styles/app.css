@@ -50,3 +50,8 @@ label {
 	color: white;
 	font-weight: bold;
 }
+.customGradient {
+	@apply bg-gradient-to-r from-emerald-400
+via-emerald-500 to-emerald-600 dark:from-blue-400
+dark:via-blue-500 dark:to-blue-600;
+}
