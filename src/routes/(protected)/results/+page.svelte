@@ -1,9 +1,7 @@
 <script lang="ts">
 	import SectionTitle from '@components/layout/SectionTitle.svelte';
-	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
 	import type { PollWithVoteCount } from '@/types/index';
-	import type { ObjectId } from 'mongodb';
 	import { slide } from 'svelte/transition';
 	import Result from '@components/Result.svelte';
 	import { page } from '$app/stores';
@@ -31,19 +29,6 @@
 			openModal = true;
 		} else {
 			openModal = false;
-		}
-	}
-	let document: Document;
-	onMount(() => {
-		document = window.document;
-	});
-
-	function revealAnswer(id: ObjectId | string) {
-		const polls = document.querySelectorAll('[data-poll-id]');
-		for (let i = 0; i < polls.length; i++) {
-			if (polls[i].getAttribute('data-poll-id') == `${id}`) {
-				polls[i].classList.remove('hidden');
-			}
 		}
 	}
 </script>

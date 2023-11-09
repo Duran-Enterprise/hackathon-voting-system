@@ -5,7 +5,6 @@
 	import type { Poll } from '@/types/index';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
-	import { goto } from '$app/navigation';
 	import ModalContainer from '@components/ModalContainer.svelte';
 
 	export let data: PageServerData;
