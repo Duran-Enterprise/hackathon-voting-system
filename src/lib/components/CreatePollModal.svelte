@@ -37,7 +37,13 @@
 	}
 </script>
 
-<form bind:this={createPollForm} class="modalForm" method="post" action="?/createPoll" use:enhance>
+<form
+	bind:this={createPollForm}
+	class="modalForm max-h-[80vh] overflow-y-auto"
+	method="post"
+	action="?/createPoll"
+	use:enhance
+>
 	<h2 class="modalHeading">Create a Poll</h2>
 	<div class="form-control" title="This will appear as a heading for your poll">
 		<label for="title" class="label label-text">Poll Title</label>
