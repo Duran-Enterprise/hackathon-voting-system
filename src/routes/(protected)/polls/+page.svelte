@@ -38,7 +38,7 @@
 </script>
 
 <div class="w-full mr-auto">
-	<SectionTitle sectionName="Polls" />
+	<SectionTitle sectionName="Polls" sticky={true} />
 	<ul class="list-disc pl-4 mr-auto">
 		{#each data.polls as poll (poll._id)}
 			<li class="text-gray-700 mb-2">

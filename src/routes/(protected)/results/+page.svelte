@@ -34,7 +34,7 @@
 	}
 </script>
 
-<SectionTitle sectionName="Results" />
+<SectionTitle sectionName="Results" sticky={true} />
 <section class="flex flex-row gap-10 flex-wrap relative">
 	{#each pollsWithVotes as poll (poll._id)}
 		<div

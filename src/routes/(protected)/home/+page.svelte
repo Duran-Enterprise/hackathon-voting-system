@@ -30,7 +30,7 @@
 	const quote = getRandomQuote();
 </script>
 
-<SectionTitle sectionName="Home" />
+<SectionTitle sectionName="Home" sticky={true} />
 
 <div class="card w-full bg-base-100 shadow-xl flex flex-col md:flex-row max-w-3xl mx-auto">
 	<figure class="p-8 min-w-[320px]">
