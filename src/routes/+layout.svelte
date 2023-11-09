@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '$lib/styles/app.css';
+	import '$lib/styles/global.css';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import background from '$lib/assets/background.webp';
 </script>
