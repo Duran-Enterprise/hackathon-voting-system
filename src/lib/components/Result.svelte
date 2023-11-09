@@ -4,29 +4,7 @@
 	import { onMount } from 'svelte';
 	import { quartInOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
-	export let poll: PollWithVoteCount = {
-		_id: '1',
-		title: 'Poll Title',
-		pollDescription: 'Poll Description',
-		choices: [
-			{
-				choice: 'Choice One',
-				voters: ['dduran19', 'dduran19', 'dduran19', 'dduran19', 'dduran19', 'booswaa']
-			},
-			{
-				choice: 'Choice Two',
-				voters: ['dduran19', 'dduran19', 'dduran19']
-			},
-			{
-				choice: 'Choice Three',
-				voters: ['dduran19', 'dduran19', 'dduran19', 'dduran19']
-			}
-		],
-		startDate: new Date('2023-11-07T00:00:00.000Z'),
-		endDate: new Date('2023-11-11T00:00:00.000Z'),
-		maxVoteCount: 6,
-		voteCount: 16
-	};
+	export let poll: PollWithVoteCount;
 
 	const widths = poll.choices.map(() =>
 		tweened(0, { duration: 2000, delay: 300, easing: quartInOut })
@@ -50,18 +28,20 @@
 	});
 </script>
 
-<div class="customBorder">
+<div class="customBorder min-h-[80vh] w-[min(80vw,42rem)]">
 	<div
 		class=" relative w-full h-full max-w-2xl mx-auto p-4 z-0 max-h-[80vh]
      overflow-y-auto bg-white dark:bg-gray-800 text-black dark:text-white rounded shadow-md
      "
 	>
-		<h1 class="text-3xl font-bold mb-4">{poll.title}</h1>
-		<p class="text-gray-600 mb-4">{poll.pollDescription}</p>
+		<h1 class="text-3xl font-bold mb-4 truncate" title={poll.title}>
+			{poll.title}
+		</h1>
+		<p class="text-gray-600 mb-4 truncate" title={poll.pollDescription}>{poll.pollDescription}</p>
 		<a
 			href="/results"
 			role="button"
-			on:click={() => {
+			on:click|preventDefault|stopPropagation={() => {
 				goto('/results');
 			}}
 			class="absolute right-2 top-1">X</a
@@ -88,7 +68,12 @@
 							class="absolute inset-0 -left-6 -z-0 customGradient rounded-ee-md rounded-se-md"
 							style="width: 0%"
 						/>
-						<p class="text-shadow text-white text-lg font-semibold z-10">{choice.choice}</p>
+						<p
+							class="text-shadow text-white text-lg font-semibold z-10 truncate"
+							title={choice.choice}
+						>
+							{choice.choice}
+						</p>
 						<p class="text-shadow text-gray-600 dark:text-gray-300 z-10">
 							Votes: {choice.voters.length}
 						</p>
@@ -96,7 +81,7 @@
 
 					<ul class="ml-4">
 						{#each choice.voters as voter}
-							<li class="text-gray-500 dark:text-gray-400">{voter}</li>
+							<li class="text-gray-500 dark:text-gray-400" title={voter}>{voter}</li>
 						{/each}
 					</ul>
 				</li>

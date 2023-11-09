@@ -39,7 +39,7 @@
 </script>
 
 <div class="w-full mr-auto">
-	<SectionTitle sectionName="Polls" sticky={true} />
+	<SectionTitle sectionName="Polls" />
 	<ul class="list-disc pl-4 mr-auto">
 		{#each data.polls as poll (poll._id)}
 			<li class="text-gray-700 mb-2">
@@ -49,9 +49,9 @@
 			</li>
 		{/each}
 	</ul>
-	<ModalContainer {openModal} url={'/polls'}>
-		{#key pollId}
+	<ModalContainer {openModal} url={'/polls'} key={pollId}>
+		{#if pollId}
 			<VotePollModal {poll} username={data.verifiedUser.username} />
-		{/key}
+		{/if}
 	</ModalContainer>
 </div>

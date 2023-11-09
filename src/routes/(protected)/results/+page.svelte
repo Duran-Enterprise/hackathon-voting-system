@@ -33,7 +33,7 @@
 	}
 </script>
 
-<SectionTitle sectionName="Results" sticky={true} />
+<SectionTitle sectionName="Results" />
 <section class="flex flex-row gap-10 flex-wrap relative">
 	{#each pollsWithVotes as poll (poll._id)}
 		<div
@@ -66,9 +66,9 @@
 			>
 		</div>
 	{/each}
-	<ModalContainer {openModal} url={'/results'}>
-		{#key pollId}
+	<ModalContainer {openModal} url={'/results'} key={pollId}>
+		{#if pollId && poll}
 			<Result {poll} />
-		{/key}
+		{/if}
 	</ModalContainer>
 </section>
