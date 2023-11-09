@@ -1,32 +1,23 @@
 <script lang="ts">
 	import Sidebar from '@components/layout/Sidebar.svelte';
 	import type { LayoutServerData } from './$types';
+	import { AppBar, AppLayout } from 'svelte-ux';
 	export let data: LayoutServerData;
+	let user = data.verifiedUser;
 </script>
 
-<div class="drawer lg:drawer-open h-screen fixed inset-0 overflow-auto bg-darkBlack">
-	<input id="sidebar" type="checkbox" class="drawer-toggle" />
-	<div class="drawer-content flex flex-col items-center">
-		<label
-			for="sidebar"
-			class="btn btn-square drawer-button lg:hidden btn-ghost fixed left-4 top-2"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				class="inline-block w-5 h-5 stroke-current"
-				><path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M4 6h16M4 12h16M4 18h16"
-				/></svg
-			></label
-		>
-		<section class="flex flex-col items-center justify-center mt-10 w-full px-10">
-			<slot />
-		</section>
-	</div>
-	<Sidebar user={data.verifiedUser} />
-</div>
+<AppLayout>
+	<nav slot="nav" class="h-full">
+		<Sidebar {user} />
+	</nav>
+
+	<AppBar title="Cast Away">
+		<div slot="actions">
+			<!-- App actions -->
+		</div>
+	</AppBar>
+
+	<main class="pl-10">
+		<slot />
+	</main>
+</AppLayout>
