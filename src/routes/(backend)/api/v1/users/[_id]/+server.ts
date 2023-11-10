@@ -1,5 +1,5 @@
 import { validateId } from '@server/middlewares/ZodValidator';
-import { Users } from '@server/mongoDb/MongoDBProvider';
+import { Users } from '@server/mongoDb/UsersDB';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { responseGenerator } from '@utils/index';
 

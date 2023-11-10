@@ -1,5 +1,5 @@
 import { validateNewPoll } from '@server/middlewares/ZodValidator';
-import { Polls } from '@server/mongoDb/MongoDBProvider';
+import { Polls } from '@server/mongoDb/PollsDB';
 import type { newPoll } from '@server/schema';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { responseGenerator } from '@utils/index';
@@ -36,5 +36,5 @@ export const POST: RequestHandler = async ({ request }) => {
 		return json(validatedPoll);
 	}
 	const result = await Polls.insertPoll(newPoll);
-	return json(result);
+	return json(responseGenerator(result));
 };

@@ -1,4 +1,4 @@
-import { Polls } from '@server/mongoDb/MongoDBProvider';
+import { Polls } from '@server/mongoDb/PollsDB';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params }) => {

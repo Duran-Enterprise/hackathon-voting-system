@@ -1,6 +1,6 @@
 import { verifyToken } from '@server/TokenFunctions';
 import { validateId } from '@server/middlewares/ZodValidator';
-import { Polls } from '@server/mongoDb/MongoDBProvider';
+import { Polls } from '@server/mongoDb/PollsDB';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { responseGenerator } from '@utils/index';
 
