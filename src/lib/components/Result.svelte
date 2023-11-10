@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import type { PollWithVoteCount } from '@/types/index';
 	import { onMount } from 'svelte';
 	import { quartInOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
+	import Share from './SVGs/Share.svelte';
+	import Email from './SVGs/Email.svelte';
 	export let poll: PollWithVoteCount;
 	const choices = poll.choices;
 
@@ -29,26 +30,27 @@
 	});
 </script>
 
-<div class="customBorder min-h-[80vh] w-[min(80vw,42rem)]">
+<div class=" relative customBorder min-h-[80vh] w-[min(80vw,42rem)]">
+	<h1 class="max-w-2xl mx-auto pt-4 px-4 text-3xl font-bold text-balance" title={poll.title}>
+		{poll.title}
+	</h1>
+	<Email
+		classes="absolute top-[15px] right-12"
+		data={{
+			subject: `Voting Results - ${poll.title}`,
+			body: `Title: ${poll.title}\nDescription: ${poll.pollDescription}`,
+			link: true
+		}}
+	/>
+	<Share />
 	<div
 		class=" relative w-full h-full max-w-2xl mx-auto p-4 z-0 max-h-[80vh]
-     overflow-y-auto bg-white dark:bg-darkBlack text-black dark:text-white rounded shadow-md
+     overflow-y-auto rounded shadow-md
      "
 	>
-		<h1 class="text-3xl font-bold mb-4 text-balance" title={poll.title}>
-			{poll.title}
-		</h1>
 		<p class="text-gray-600 mb-4 text-balance" title={poll.pollDescription}>
 			{poll.pollDescription}
 		</p>
-		<a
-			href="/results"
-			role="button"
-			on:click|preventDefault|stopPropagation={() => {
-				goto('/results');
-			}}
-			class="absolute right-2 top-1">X</a
-		>
 
 		<div class="flex justify-between mb-4">
 			<div>
@@ -61,28 +63,34 @@
 			</div>
 			<p class="text-gray-600 dark:text-gray-300">Total Votes: {poll.voteCount}</p>
 		</div>
-
 		<ul>
 			{#each poll.choices as choice, index}
-				<li class="border-b py-4 dark:border-gray-600">
-					<div class="relative flex justify-between items-center w-full">
+				<li class="collapse overflow-visible border-b py-4 dark:border-gray-600">
+					<input
+						id={`choice${index}`}
+						class=""
+						type="checkbox"
+						name="choices"
+						checked={index === 0}
+					/>
+					<div class="collapse-title relative flex justify-between items-center w-full">
 						<div
 							data-result={index}
-							class="absolute inset-0 -left-6 -z-0 customGradient rounded-ee-md rounded-se-md"
+							class=" absolute inset-0 -left-6 -z-0 customGradient rounded-ee-md rounded-se-md"
 							style="width: 0%"
 						/>
-						<p
-							class="text-shadow text-white text-lg font-semibold z-10 text-balance"
+						<label
+							for={`choice${index}`}
+							class=" text-shadow text-white text-lg font-semibold z-10 text-balance cursor-pointer"
 							title={choice.choice}
 						>
 							{choice.choice}
-						</p>
+						</label>
 						<p class="text-shadow text-gray-600 dark:text-gray-300 z-10">
 							Votes: {choice.voters.length}
 						</p>
 					</div>
-
-					<ul class="ml-4">
+					<ul class="collapse-content ml-4">
 						{#each choice.voters as voter}
 							<li class="text-gray-500 dark:text-gray-400" title={voter}>{voter}</li>
 						{/each}

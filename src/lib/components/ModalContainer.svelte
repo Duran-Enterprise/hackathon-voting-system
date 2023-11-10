@@ -30,10 +30,11 @@
 		>
 			<!-- Outside of the modal -->
 		</a>
-		<div class="z-[2]">
-			<div transition:fly={{ duration: 300, y: 100 }}>
-				<slot />
-			</div>
+		<div
+			class="z-[2] bg-white dark:bg-darkBlack text-black dark:text-white"
+			transition:fly={{ duration: 300, y: 100 }}
+		>
+			<slot />
 		</div>
 	</div>
 {/key}
