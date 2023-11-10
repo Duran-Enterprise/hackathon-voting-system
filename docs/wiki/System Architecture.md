@@ -24,10 +24,10 @@
 - Frontend: [Sveltekit](https://svelte.dev/docs)
 - UI Prototyping: [Figma](https://figma.com/)
 - Authentication: [Discord OAuth2.0 API](https://discord.com/developers/docs/topics/oauth2)
-- Authorization: [NextAuth.js](https://next-auth.js.org/)
+- Authorization: [Node - JWT](https://www.npmjs.com/package/jsonwebtoken)
 - Git Control: [Github](https://github.com/)
 - Database: [MongoDB](https://mongodb.com/)
-- Deployment: [Cloudflare](http://cloudflare.com/)
+- Deployment: [Vercel](https://vercel.com/dashboard/)
 
 ### Frontend Routes:
 
@@ -66,11 +66,11 @@
      - `choices` (array of strings): Options that other users can vote on.
    - **Response:** Confirmation of the newly created poll.
 
-4. **GET** `/api/v1/polls/[id]`
+4. **GET** `/api/v1/polls/[_id]`
 
    - **Purpose:** Retrieve a specific poll by its unique identifier.
    - **Request Parameters:**
-     - `id` (string): The unique identifier of the poll.
+     - `_id` (string): The unique identifier of the poll.
    - **Response:** Details of the specified poll, including `pollDescription` and choices.
 
 5. **GET** `/api/v1/results`
