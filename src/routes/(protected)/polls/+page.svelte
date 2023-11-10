@@ -25,15 +25,20 @@
 			let options;
 			if (vote === 'success') {
 				options = {
-					theme: { '--toastBackground': 'green', '--toastBarBackground': 'limegreen' }
+					theme: { '--toastBackground': 'green', '--toastBarBackground': 'limegreen' },
+					duration: 6900
 				};
 			}
 			if (vote === 'fail') {
 				options = {
-					theme: { '--toastBackground': ' #FF6F61', '--toastBarBackground': '#DC143C' }
+					theme: { '--toastBackground': ' #FF6F61', '--toastBarBackground': '#DC143C' },
+					duration: 6900
 				};
 			}
 			toast.push(message, options);
+			setTimeout(() => {
+				toast.pop(0);
+			}, 7000);
 		}
 	}
 </script>

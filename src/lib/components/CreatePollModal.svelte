@@ -4,6 +4,7 @@
 
 	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	let createPollForm: HTMLFormElement;
 	let pollDescription = '';
@@ -35,6 +36,38 @@
 		}
 		choices = choices.filter((_, i) => i !== index);
 	}
+	const options = {
+		theme: { '--toastBackground': ' #FF6F61', '--toastBarBackground': '#DC143C' },
+		duration: 6900
+	};
+	let errors: Record<string, string> | undefined;
+
+	$: {
+		if (errors) {
+			let duration = 7000;
+			for (const key in errors) {
+				toast.push(errors[key], { ...options, duration });
+				duration += 3000;
+			}
+			setTimeout(() => {
+				toast.pop(0);
+			}, 20000);
+		}
+	}
+	interface ResultData {
+		data: {
+			errors?: Record<string, string>;
+		};
+	}
+	const handleSubmit = () => {
+		return async ({ result }: any) => {
+			const resultingData = result as ResultData;
+
+			if (resultingData.data.errors) {
+				errors = resultingData.data.errors;
+			}
+		};
+	};
 </script>
 
 <form
@@ -42,7 +75,7 @@
 	class="modalForm max-h-[80vh] overflow-y-auto"
 	method="post"
 	action="?/createPoll"
-	use:enhance
+	use:enhance={handleSubmit}
 	title="Create a Poll"
 >
 	<h2 class="modalHeading">Create a Poll</h2>

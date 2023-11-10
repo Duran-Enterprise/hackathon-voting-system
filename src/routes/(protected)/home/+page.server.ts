@@ -22,6 +22,7 @@ export const actions: Actions = {
 	createPoll: async ({ request, fetch }) => {
 		const data = Object.fromEntries(
 			await request.formData().catch((error) => {
+				console.log(error);
 				throw redirect(302, `/home?voted=fail&message=${error.message}`);
 			})
 		);
@@ -50,12 +51,9 @@ export const actions: Actions = {
 			},
 			body: JSON.stringify(poll)
 		}).then((res) => res.json());
-		console.log(poll);
-		console.log(result);
 		if (result.status === 'success') {
-			throw redirect(302, '/home?create=success&message=poll created');
+			throw redirect(302, '/polls?created=true&message=poll created');
 		}
-
-		throw redirect(302, `/home?create=fail&message=${result.message}`);
+		return { errors: result.error.errors as Record<string, string> };
 	}
 };

@@ -1,13 +1,12 @@
 <script lang="ts">
+	import type { PageServerData } from './$types';
 	import CreatePollModal from '@components/CreatePollModal.svelte';
 	import SectionTitle from '@components/layout/SectionTitle.svelte';
 	import { getAvatarLink, getRandomQuote } from '@utils/index';
-	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import ModalContainer from '@components/ModalContainer.svelte';
 	export let data: PageServerData;
-
 	let openModal = false;
 	$: newPoll = new URL($page.url).searchParams.get('new');
 	$: {
