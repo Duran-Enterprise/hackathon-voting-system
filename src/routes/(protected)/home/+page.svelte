@@ -39,6 +39,8 @@
 			class="rounded-full aspect-square"
 			src={getAvatarLink(data.verifiedUser, 320) || ''}
 			alt="Avatar"
+			height="256"
+			width="256"
 		/>
 	</figure>
 	<div class="card-body m-0 flex justify-around">

@@ -13,29 +13,31 @@
 	<h1 class="my-5 text-center text-lightWhite">Cast Away</h1>
 	<div class="avatar my-4">
 		<div class="w-24 rounded mx-auto">
-			<img src={getAvatarLink(user)} alt="Discord Avatar" />
+			<img src={getAvatarLink(user)} alt="Discord Avatar" width="96" height="96" />
 		</div>
 	</div>
 	<h4 class="text-center uppercase mb-4 text-lightWhite">{user.username}</h4>
 
 	<li>
-		<a class="text-lg gap-4 text-lightWhite" href="/home"><img src={home} alt="home icon" />Home</a>
+		<a class="text-lg gap-4 text-lightWhite" href="/home"
+			><img src={home} alt="home icon" width="15" height="15" />Home</a
+		>
 	</li>
 	<li>
 		<a class="text-lg gap-4 text-lightWhite" href="/polls"
-			><img src={polls} alt="polls icon" />Polls</a
+			><img src={polls} alt="polls icon" width="15" height="15" />Polls</a
 		>
 	</li>
 	<li>
 		<a class="text-lg gap-4 text-lightWhite" href="/results"
-			><img src={results} alt="results icon" />Results</a
+			><img src={results} alt="results icon" width="15" height="15" />Results</a
 		>
 	</li>
 	<div class="divider my-4" />
 	<li>
 		<Toggle let:on={open} let:toggle>
-			<a class="text-lg gap-4 text-red-600" href="/?logout=true" role="button">
-				<img src={logout} alt="logout icon" />Logout
+			<a class="text-lg gap-4 text-red-500 hover:text-red-500" href="/?logout=true" role="button">
+				<img src={logout} alt="logout icon" width="15" height="15" />Logout
 			</a>
 			<Dialog {open} on:close={toggle}>
 				<div slot="title">Logout Confirmation</div>

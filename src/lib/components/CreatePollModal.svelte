@@ -109,6 +109,8 @@
 						src={choices.length <= 2 ? disabledTrashIcon : trashIcon}
 						alt="Delete Option"
 						title="Delete Option"
+						width="15"
+						height="15"
 					/>
 				</button>
 			</div>
