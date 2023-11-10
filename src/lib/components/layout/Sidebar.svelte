@@ -5,6 +5,7 @@
 	import polls from '$lib/assets/polls.svg';
 	import results from '$lib/assets/results.svg';
 	import logout from '$lib/assets/logout.svg';
+	import { Button, Dialog, Toggle } from 'svelte-ux';
 	export let user: DiscordUser;
 </script>
 
@@ -32,8 +33,44 @@
 	</li>
 	<div class="divider my-4" />
 	<li>
-		<a class="text-lg gap-4 text-red-600" href="/?logout=true"
-			><img src={logout} alt="logout icon" />Logout</a
-		>
+		<Toggle let:on={open} let:toggle>
+			<a class="text-lg gap-4 text-red-600" href="/?logout=true" role="button">
+				<img src={logout} alt="logout icon" />Logout
+			</a>
+			<Dialog {open} on:close={toggle}>
+				<div slot="title">Logout Confirmation</div>
+				<div class="px-6 py-3">Are you sure you want to logout?</div>
+				<Button
+					on:click={() => {
+						console.log('Deleting item...');
+					}}
+					variant="fill"
+					color="red"
+				>
+					Yes, delete item
+				</Button>
+				<Button>Cancel</Button>
+			</Dialog>
+		</Toggle>
 	</li>
 </ul>
+<!-- <Button icon={mdiTrashCan} on:click={toggle} color="red">Delete</Button>
+	<Dialog {open} on:close={toggle}>
+	  <div slot="title">Are you sure?</div>
+	  <div class="px-6 py-3">
+		This will permanently delete the item and can not be undone.
+	  </div>
+	  <div slot="actions">
+		<Button
+		  on:click={() => {
+			console.log("Deleting item...");
+		  }}
+		  variant="fill"
+		  color="red"
+		>
+		  Yes, delete item
+		</Button>
+		<Button>Cancel</Button>
+	  </div>
+	</Dialog>
+   -->

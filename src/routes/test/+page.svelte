@@ -1,111 +1,41 @@
 <script lang="ts">
-	import type { PollWithVoteCount } from '@/types/index';
 	import { onMount } from 'svelte';
-	import { quartInOut } from 'svelte/easing';
-	import { tweened } from 'svelte/motion';
-	export let poll: PollWithVoteCount = {
-		_id: '654a54ac2e23e6337a30545a',
-		title: 'Hackathon - Voting System',
-		pollDescription:
-			'This event is the first Hackathon event of Daedalus. Vote below who do you think should win.',
-		choices: [
-			{
-				choice: 'castAway',
-				voters: ['dduran19', 'dduran19', 'dduran19', 'dduran19', 'dduran19', 'booswaa']
-			},
-			{
-				choice: 'ReactPressPHP',
-				voters: ['dduran19', 'dduran19', 'dduran19']
-			},
-			{
-				choice: "D'Rocketeers",
-				voters: ['dduran19', 'dduran19', 'dduran19', 'dduran19']
-			},
-			{
-				choice: 'MAPEH',
-				voters: ['dduran19']
-			},
-			{
-				choice: 'Team Chibog',
-				voters: ['dduran19', 'dduran19']
-			}
-		],
-		startDate: new Date('2023-11-07T00:00:00.000Z'),
-		endDate: new Date('2023-11-11T00:00:00.000Z'),
-		maxVoteCount: 6,
-		voteCount: 16
-	};
+	import background from '$lib/assets/background.webm';
 
-	const widths = poll.choices.map(() =>
-		tweened(0, { duration: 2000, delay: 20, easing: quartInOut })
-	);
-	function updateWidth() {
-		const choices = poll.choices;
+	let video: HTMLVideoElement;
 
-		choices.forEach((choice, index) => {
-			widths[index].set((choice.voters.length / poll.maxVoteCount) * 90 + 10);
-		});
-	}
 	onMount(() => {
-		const results = document.querySelectorAll('[data-result]');
-		results.forEach((result, index) => {
-			const element = result as HTMLDivElement;
-			widths[index].subscribe((value) => {
-				element.style.width = `${value}%`;
-			});
-		});
-		updateWidth();
+		video.play();
+
+		setTimeout(() => {
+			video.pause();
+			video.currentTime = 0;
+			video.loop = true;
+			video.play();
+		}, 10000); // 60 seconds in milliseconds
 	});
 </script>
 
-<div class="relative max-w-2xl mx-auto mt-8 p-4 z-0">
-	<div
-		class=" absolute bg-white dark:bg-gray-800 text-black dark:text-white rounded shadow-md z-[-1] inset-0"
-	/>
-	<div class="absolute inset-0 scale-[1.003] z-[-2] customGradient rounded-md" />
-
-	<h1 class="text-3xl font-bold mb-4">{poll.title}</h1>
-	<p class="text-gray-600 mb-4">{poll.pollDescription}</p>
-
-	<div class="flex justify-between mb-4">
-		<div>
-			<p class="text-gray-600 dark:text-gray-300">
-				Start Date: {new Date(poll.startDate).toLocaleDateString()}
-			</p>
-			<p class="text-gray-600 dark:text-gray-300">
-				End Date: {new Date(poll.endDate).toLocaleDateString()}
-			</p>
-		</div>
-		<p class="text-gray-600 dark:text-gray-300">Total Votes: {poll.voteCount}</p>
-	</div>
-
-	<ul>
-		{#each poll.choices as choice, index}
-			<li class="border-b py-4 dark:border-gray-600">
-				<div class="relative flex justify-between items-center w-full">
-					<div
-						data-result={index}
-						class="absolute inset-0 -left-4 -z-0 customGradient rounded-ee-md rounded-se-md"
-						style="width: 0%"
-					/>
-					<p class="text-shadow text-white text-lg font-semibold z-10">{choice.choice}</p>
-					<p class="text-shadow text-gray-600 dark:text-gray-300 z-10">
-						Votes: {choice.voters.length}
-					</p>
-				</div>
-
-				<ul class="ml-4">
-					{#each choice.voters as voter}
-						<li class="text-gray-500 dark:text-gray-400">{voter}</li>
-					{/each}
-				</ul>
-			</li>
-		{/each}
-	</ul>
+<div class="video-container">
+	<video bind:this={video} autoplay loop muted>
+		<source src={background} type="video/webm" />
+		Your browser does not support the video tag.
+	</video>
 </div>
 
 <style>
-	.text-shadow {
-		text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.716);
+	.video-container {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	video {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
 	}
 </style>
