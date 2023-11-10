@@ -43,6 +43,13 @@ export const newPollZod = z
 		{
 			message: 'End date must be after start date'
 		}
+	)
+	.refine(
+		({ choices }) => {
+			const uniqueChoices = new Set(choices.map((choice) => choice.choice));
+			return uniqueChoices.size === choices.length;
+		},
+		{ message: 'Choices must be unique' }
 	);
 
 export const newVoteZod = z.object({
