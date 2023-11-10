@@ -66,7 +66,7 @@
 			>
 		</div>
 	{/each}
-	<ModalContainer {openModal} url={'/results'} key={pollId}>
+	<ModalContainer {openModal} url={'/results'}>
 		{#if pollId && poll}
 			<Result {poll} />
 		{/if}

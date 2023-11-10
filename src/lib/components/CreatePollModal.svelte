@@ -60,6 +60,7 @@
 		};
 	}
 	const handleSubmit = () => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return async ({ result }: any) => {
 			const resultingData = result as ResultData;
 

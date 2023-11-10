@@ -54,7 +54,7 @@
 			</li>
 		{/each}
 	</ul>
-	<ModalContainer {openModal} url={'/polls'} key={pollId}>
+	<ModalContainer {openModal} url={'/polls'}>
 		{#if pollId}
 			<VotePollModal {poll} username={data.verifiedUser.username} />
 		{/if}
