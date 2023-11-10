@@ -43,6 +43,7 @@
 	method="post"
 	action="?/createPoll"
 	use:enhance
+	title="Create a Poll"
 >
 	<h2 class="modalHeading">Create a Poll</h2>
 	<div class="form-control" title="This will appear as a heading for your poll">
@@ -50,7 +51,7 @@
 		<input id="title" type="text" class="input input-bordered" name="title" required />
 	</div>
 	<div class="form-control" title="Enter the description of the poll">
-		<label for="description" class="label label-text">Poll Description</label>
+		<label for="pollDescription" class="label label-text">Poll Description</label>
 		<textarea
 			id="pollDescription"
 			name="pollDescription"
@@ -58,6 +59,7 @@
 			value={pollDescription}
 			required
 			placeholder={`ex. What's the best framework?`}
+			title="Enter the description of the poll"
 		/>
 	</div>
 	<div class="grid grid-cols-2 gap-4">
@@ -96,6 +98,7 @@
 					class=" w-full input input-bordered"
 					bind:value={choice}
 					name={`choices${i}`}
+					title="Enter a new choice"
 					required
 					placeholder={placeholders[i]}
 				/>
