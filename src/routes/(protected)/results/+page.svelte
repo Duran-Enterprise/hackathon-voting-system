@@ -116,6 +116,9 @@ h-[calc(100vh-280px)] mt-1 overflow-y-auto"
 	.box {
 		position: relative;
 	}
+	.box:hover {
+		box-shadow: rgba(255, 255, 255, 0.19) 0px 10px 20px, rgba(250, 250, 250, 0.23) 0px 6px 6px;
+	}
 	.box > * {
 		z-index: 11;
 	}
