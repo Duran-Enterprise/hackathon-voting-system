@@ -31,6 +31,33 @@
 	const quote = getRandomQuote();
 </script>
 
+<div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+	<div class="sm:flex sm:items-center sm:justify-between">
+		<div class="avatar">
+			<div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+				<img src={getAvatarLink(data.verifiedUser)} alt="avatar" />
+			</div>
+		</div>
+		<div class="text-center sm:text-left">
+			<h1 class="text-2xl font-bold sm:text-3xl">
+				Good {getGreeting()}, {data.verifiedUser.username}!
+			</h1>
+
+			<p class="mt-1.5 text-sm text-gray-500">Let's start voting!🎉</p>
+		</div>
+
+		<a class="btn bg-transparent mt-4 ml-20" href="/polls">Start Voting</a>
+		<div class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
+			<a
+				href="home?new=true"
+				role="button"
+				class="btn btn-primary mt-4 mr-4"
+				on:click={() => goto('home?new=true')}>Create Poll</a
+			>
+		</div>
+	</div>
+</div>
+
 <div class="hero">
 	<div class="hero-content flex-col lg:flex-row">
 		<img
