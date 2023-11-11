@@ -9,7 +9,7 @@
 	export let user: DiscordUser;
 </script>
 
-<ul class="menu p-4 min-h-full bg-darkBlack text-base-content">
+<ul class="relative menu p-4 min-h-full bg-darkBlack text-base-content">
 	<h1 class="my-5 text-center text-lightWhite">Cast Away</h1>
 	<div class="avatar my-4">
 		<div class="w-24 rounded mx-auto">
@@ -34,7 +34,7 @@
 		>
 	</li>
 	<div class="divider my-4" />
-	<li>
+	<li class="mt-auto">
 		<Toggle let:on={open} let:toggle>
 			<a class="text-lg gap-4 text-red-500 hover:text-red-500" href="/?logout=true" role="button">
 				<img src={logout} alt="logout icon" width="15" height="15" />Logout
@@ -56,23 +56,3 @@
 		</Toggle>
 	</li>
 </ul>
-<!-- <Button icon={mdiTrashCan} on:click={toggle} color="red">Delete</Button>
-	<Dialog {open} on:close={toggle}>
-	  <div slot="title">Are you sure?</div>
-	  <div class="px-6 py-3">
-		This will permanently delete the item and can not be undone.
-	  </div>
-	  <div slot="actions">
-		<Button
-		  on:click={() => {
-			console.log("Deleting item...");
-		  }}
-		  variant="fill"
-		  color="red"
-		>
-		  Yes, delete item
-		</Button>
-		<Button>Cancel</Button>
-	  </div>
-	</Dialog>
-   -->
