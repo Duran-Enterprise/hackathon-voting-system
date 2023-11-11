@@ -1,4 +1,4 @@
-import CreatePollModal from '@components/CreatePollModal.svelte';
+import CreatePollModal from '../../../src/lib/components/CreatePollModal.svelte';
 import { fireEvent, render, screen, cleanup } from '@testing-library/svelte';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
