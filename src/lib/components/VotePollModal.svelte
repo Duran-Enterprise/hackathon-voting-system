@@ -37,7 +37,7 @@
 {#if !poll}
 	<p>No Data available...</p>
 {:else if votedChoice}
-	<div class="modalForm">
+	<div class="modalForm max-h-[80vh] overflow-y-auto">
 		<h2 class="modalHeading">Your vote for this poll</h2>
 		<h5 class="text-center my-10">{poll.pollDescription}</h5>
 		{#each poll.choices as choice (choice.choice)}
@@ -70,7 +70,12 @@
 		</div>
 	</div>
 {:else}
-	<form method="post" action="?/submitVote" use:enhance class="modalForm">
+	<form
+		method="post"
+		action="?/submitVote"
+		use:enhance
+		class="modalForm max-h-[80vh] overflow-y-auto"
+	>
 		<h2 class="modalHeading">Vote for this poll</h2>
 		<input hidden type="text" name="pollId" value={poll._id} />
 		<h5 class="text-center my-10">{poll.pollDescription}</h5>
