@@ -63,9 +63,12 @@
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return async ({ result }: any) => {
 			const resultingData = result as ResultData;
-
-			if (resultingData.data.errors) {
-				errors = resultingData.data.errors;
+			try {
+				if (resultingData.data.errors) {
+					errors = resultingData.data.errors;
+				}
+			} catch {
+				goto('/polls?created=true&message=Poll added successfully');
 			}
 		};
 	};
