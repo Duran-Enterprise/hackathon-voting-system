@@ -13,6 +13,7 @@
 
 	$: pollId = new URL($page.url).searchParams.get('id');
 	$: vote = new URL($page.url).searchParams.get('voted');
+	$: created = new URL($page.url).searchParams.get('created');
 	$: message = new URL($page.url).searchParams.get('message');
 	$: {
 		if (pollId) {
@@ -21,9 +22,9 @@
 		} else {
 			openModal = false;
 		}
-		if (vote && message) {
+		if ((vote && message) || (created && message)) {
 			let options;
-			if (vote === 'success') {
+			if (vote === 'success' || created) {
 				options = {
 					theme: { '--toastBackground': 'green', '--toastBarBackground': 'limegreen' },
 					duration: 6900
