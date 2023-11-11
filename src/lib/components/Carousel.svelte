@@ -53,12 +53,14 @@
 			{/each}
 		{/if}
 	</div>
-	<div class="flex w-full max-w-screen-md py-2 join overflow-x-auto">
+	<div
+		class="mx-auto flex md:justify-center justify-normal w-full max-w-screen-md py-2 join overflow-x-auto"
+	>
 		<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
 		{#each data as _, index}
 			<a
 				href={`#${uniqueKey}${index}`}
-				class="join-item btn btn-lg border-gray-400 hover:border-gray-200">{index + 1}</a
+				class="join-item btn btn-sm border-gray-400 hover:border-gray-200">{index + 1}</a
 			>
 		{/each}
 	</div>

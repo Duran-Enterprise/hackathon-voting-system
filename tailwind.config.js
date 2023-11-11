@@ -14,6 +14,9 @@ export default {
 				lightGreen: '#00B7BF',
 				lightWhite: '#F4FCFF'
 			}
+		},
+		fontFamily: {
+			sans: ['Inter', 'sans-serif']
 		}
 	},
 	plugins: [

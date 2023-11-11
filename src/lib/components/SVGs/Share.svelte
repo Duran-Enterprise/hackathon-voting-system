@@ -87,13 +87,16 @@
 	#qrCode {
 		transform: translateY(30px);
 		opacity: 0;
+		visibility: hidden;
 		transition: opacity 0.3s ease-in-out;
 	}
 	#copyBtn:hover + #qrCode {
 		opacity: 1;
+		visibility: visible;
 	}
 	#qrCode:hover {
 		opacity: 1;
 		cursor: pointer;
+		visibility: visible;
 	}
 </style>
