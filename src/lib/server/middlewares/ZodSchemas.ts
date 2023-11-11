@@ -18,7 +18,8 @@ export const choiceZod = z.object({
 
 const pastDate = z.date().refine(
 	(value) => {
-		const today = new Date();
+		const tempDate = new Date();
+		const today = new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate());
 		return value >= today;
 	},
 	{
