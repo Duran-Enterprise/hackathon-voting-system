@@ -1,5 +1,5 @@
 import { openCreatePollModal, openVotePollModal } from '$lib/stores';
-import type { DefaultResponse, DiscordUser, Modals } from '@/types/index';
+import type { DefaultResponse, DiscordUser, Modals, Poll, PollWithVoteCount } from '@/types/index';
 import type { Cookies } from '@sveltejs/kit';
 
 /**
@@ -148,4 +148,91 @@ export function getRandomQuote() {
 	];
 	const randomIndex = Math.floor(Math.random() * quotes.length);
 	return quotes[randomIndex];
+}
+
+export enum PollStatus {
+	EXPIRED = 'expired',
+	ACTIVE = 'active',
+	UPCOMING = 'upcoming',
+	UNKNOWN = 'unknown'
+}
+
+export function validateVoteDate(startDate: Date, endDate: Date) {
+	const today = new Date();
+	const actualStartDate = new Date(startDate);
+	const actualEndDate = new Date(endDate);
+
+	if (actualStartDate <= today && actualEndDate >= today) {
+		return PollStatus.ACTIVE;
+	}
+	if (actualStartDate > today && actualEndDate > today) {
+		return PollStatus.UPCOMING;
+	}
+	if (actualEndDate < today) {
+		return PollStatus.EXPIRED;
+	}
+	if (actualStartDate == actualEndDate) {
+		return PollStatus.ACTIVE;
+	}
+	return PollStatus.UNKNOWN;
+}
+
+export function sortByDate(a: Poll, b: Poll, order: 'asc' | 'desc' = 'asc') {
+	if (order === 'asc') {
+		return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+	}
+	return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+}
+
+export type PollWithStatus = Poll & { status: PollStatus };
+
+export function pollsListSorter(polls: Poll[]) {
+	const finalList: PollWithStatus[] = [];
+
+	const upcomingList: PollWithStatus[] = [];
+	const activeList: PollWithStatus[] = [];
+	const expiredList: PollWithStatus[] = [];
+
+	for (let i = 0; i < polls.length; i++) {
+		const poll = polls[i];
+		const status = validateVoteDate(poll.startDate, poll.endDate);
+		switch (status) {
+			case PollStatus.UPCOMING:
+				upcomingList.push({ ...poll, status: status });
+				break;
+			case PollStatus.ACTIVE:
+				activeList.push({ ...poll, status: status });
+				break;
+			case PollStatus.EXPIRED:
+				expiredList.push({ ...poll, status: status });
+				break;
+			default:
+				break;
+		}
+	}
+	upcomingList.sort((a, b) => sortByDate(a, b, 'asc'));
+	activeList.sort((a, b) => sortByDate(a, b, 'desc'));
+	expiredList.sort((a, b) => sortByDate(a, b, 'desc'));
+	finalList.push(...upcomingList, ...activeList, ...expiredList);
+	return finalList;
+}
+
+export function CountVotesToPolls(polls: Poll[]) {
+	return polls.map((poll) => {
+		const voteCount = poll.choices.reduce((count, choice) => count + choice.voters.length, 0);
+		const maxVoteCount = Math.max(...poll.choices.map((choice) => choice.voters.length));
+
+		return { ...poll, voteCount, maxVoteCount };
+	});
+}
+
+export function shufflePolls(pollWithVotes: PollWithVoteCount[]) {
+	return pollWithVotes.map((poll) => {
+		const shuffledChoices = [...poll.choices];
+		for (let i = shuffledChoices.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[shuffledChoices[i], shuffledChoices[j]] = [shuffledChoices[j], shuffledChoices[i]];
+		}
+		return { ...poll, choices: shuffledChoices };
+	});
 }

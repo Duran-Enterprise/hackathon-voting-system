@@ -9,21 +9,15 @@
 	import ModalContainer from '@components/ModalContainer.svelte';
 	import Search from '@components/Search.svelte';
 	import { searchResults } from '$lib/stores';
+	import { CountVotesToPolls, shufflePolls } from '@utils/index';
 	export let data: PageServerData;
 	let poll: PollWithVoteCount | undefined;
 	let polls = data.polls;
 	let openModal = false;
-	const pollsWithVotes: PollWithVoteCount[] = polls.map((poll) => {
-		const voteCount = poll.choices.reduce((count, choice) => count + choice.voters.length, 0);
-		const maxVoteCount = Math.max(...poll.choices.map((choice) => choice.voters.length));
-		const shuffledChoices = [...poll.choices];
-		for (let i = shuffledChoices.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[shuffledChoices[i], shuffledChoices[j]] = [shuffledChoices[j], shuffledChoices[i]];
-		}
-		return { ...poll, voteCount, maxVoteCount, choices: shuffledChoices };
-	});
-	$: filteredPolls = pollsWithVotes.filter(
+	const pollWithVotes = CountVotesToPolls(polls);
+	const shuffledPollsWithVotes: PollWithVoteCount[] = shufflePolls(pollWithVotes);
+
+	$: filteredPolls = shuffledPollsWithVotes.filter(
 		(poll) =>
 			poll.title.toLowerCase().includes($searchResults.toLowerCase()) ||
 			poll.pollDescription.toLowerCase().includes($searchResults.toLowerCase())
@@ -31,7 +25,7 @@
 	$: pollId = new URL($page.url).searchParams.get('id');
 	$: {
 		if (pollId) {
-			poll = pollsWithVotes.find((poll) => poll._id === pollId);
+			poll = shuffledPollsWithVotes.find((poll) => poll._id === pollId);
 			openModal = true;
 		} else {
 			openModal = false;
