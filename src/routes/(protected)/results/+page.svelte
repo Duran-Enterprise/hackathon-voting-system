@@ -41,7 +41,10 @@
 
 <SectionTitle sectionName="Results" />
 <Search searchString={searchResults} />
-<section class="flex flex-row justify-evenly flex-wrap relative">
+<section
+	class="flex flex-row justify-evenly flex-wrap relative
+h-[calc(100vh-280px)] mt-1 overflow-y-auto"
+>
 	{#each filteredPolls as poll (poll._id)}
 		<div
 			class="box bg-darkBlack p-4 rounded-lg shadow-lg my-4 w-[350px] min-h-[280px] flex flex-col justify-around"
