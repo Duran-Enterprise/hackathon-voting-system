@@ -61,3 +61,15 @@ body .collapse-title,
 	min-height: 8px;
 	height: 8px;
 }
+
+.text-shadow {
+	text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.716);
+}
+.btn-primary {
+	background-color: #3c84f4;
+}
+.btn-primary:hover,
+.hover-primary:hover {
+	background-color: #3b82f6;
+	color: white;
+}

@@ -100,9 +100,3 @@
 		</ul>
 	</div>
 </div>
-
-<style>
-	.text-shadow {
-		text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.716);
-	}
-</style>
