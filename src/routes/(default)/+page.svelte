@@ -1,5 +1,4 @@
 <script>
-	import { DAEDALUS_SERVER_INVITE } from '@/types/index';
 </script>
 
 <div class="hero min-h-screen" style="background-image: url(/src/lib/assets/heroBackground.jpg);">
