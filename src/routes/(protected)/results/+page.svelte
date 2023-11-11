@@ -59,7 +59,7 @@
 			</div>
 
 			<a
-				class="btn mt-4 btn-block hover:btn-primary"
+				class="btn mt-4 btn-block hover-primary"
 				href="results?id={poll._id}"
 				role="button"
 				on:click={() => goto('results?id=' + poll._id)}>Reveal Results</a
