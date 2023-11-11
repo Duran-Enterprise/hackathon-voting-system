@@ -21,7 +21,7 @@
 		</div>
 	</AppBar>
 
-	<main class="pl-10">
+	<main class="px-10">
 		{#key route}
 			<div in:fly={{ duration: 300, x: 100 }}>
 				<slot />

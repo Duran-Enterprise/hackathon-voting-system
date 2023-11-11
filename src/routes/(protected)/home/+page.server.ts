@@ -14,8 +14,13 @@ export const load: PageServerLoad = async ({ fetch, locals }) => {
 			return choice.voters.includes(verifiedUser.username.toLowerCase());
 		});
 	});
+	const featuredPolls = polls.filter((poll) => {
+		return poll.choices.some((choice) => {
+			return !choice.voters.includes(verifiedUser.username.toLowerCase());
+		});
+	});
 
-	return { userPolls, verifiedUser };
+	return { userPolls, verifiedUser, featuredPolls };
 };
 
 export const actions: Actions = {
@@ -52,8 +57,10 @@ export const actions: Actions = {
 			body: JSON.stringify(poll)
 		}).then((res) => res.json());
 		if (result.status === 'success') {
-			throw redirect(302, '/polls?created=true&message=poll created');
+			// console.log({ result });
 		}
-		return { errors: result.error.errors as Record<string, string> };
+		if (result.error) {
+			return { errors: result.error.errors as Record<string, string> };
+		}
 	}
 };

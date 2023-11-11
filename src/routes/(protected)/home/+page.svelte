@@ -6,6 +6,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import ModalContainer from '@components/ModalContainer.svelte';
+	import Carousel from '@components/Carousel.svelte';
 	export let data: PageServerData;
 	let openModal = false;
 	$: newPoll = new URL($page.url).searchParams.get('new');
@@ -30,43 +31,47 @@
 	const quote = getRandomQuote();
 </script>
 
-<SectionTitle sectionName="Home" />
-
-<div class="card w-full bg-darkBlack shadow-xl flex flex-col md:flex-row max-w-3xl mx-auto">
-	<figure class="p-8 min-w-[320px]">
+<div class="hero">
+	<div class="hero-content flex-col lg:flex-row">
 		<img
-			class="rounded-full aspect-square"
 			src={getAvatarLink(data.verifiedUser, 320) || ''}
+			class="max-w-sm rounded-lg shadow-2xl"
 			alt="Avatar"
 			height="256"
 			width="256"
 		/>
-	</figure>
-	<div class="card-body m-0 flex justify-around">
-		<h2 class="card-title">
-			Good{getGreeting()}, {data.verifiedUser.username.toUpperCase()}!
-		</h2>
-		<div class="w-full p-4 bg-black border-l-4 border-slate-300">
-			<p class="text-2xl italic text-gray-200 mb-1">{quote.text}</p>
-			<p class="text-sm text-gray-200">{quote.author}</p>
-		</div>
-		<div class="card-actions justify-end">
-			<a href="home?new=true" role="button" class="btn mt-4" on:click={() => goto('home?new=true')}
-				>Create Poll</a
+		<div>
+			<h1 class="text-5xl font-bold">
+				Good{getGreeting()}, {data.verifiedUser.username.toUpperCase()}!
+			</h1>
+			<p class="pt-6">Your quote for the day</p>
+			<p class="pb-6">
+				{quote.text}
+				{quote.author}
+			</p>
+			<a
+				href="home?new=true"
+				role="button"
+				class="btn btn-primary mt-4 mr-4"
+				on:click={() => goto('home?new=true')}>Create Poll</a
 			>
-			<a class="btn mt-4" href="/polls">Start Voting</a>
+			<a class="btn bg-transparent mt-4" href="/polls">Start Voting</a>
 		</div>
 	</div>
 </div>
-<SectionTitle sectionName="Your votes" />
-<ul class="list-disc pl-4 mr-auto">
-	{#each data.userPolls as poll (poll._id)}
-		<li class="text-gray-700 mb-2">
-			<p><a href="results?id={poll._id}">{poll.title}</a></p>
-		</li>
-	{/each}
-</ul>
+
+<SectionTitle sectionName="Featured Polls" />
+<Carousel data={data.featuredPolls} uniqueKey="featured" />
+
+<SectionTitle sectionName="Voted polls" />
+<Carousel data={data.userPolls} uniqueKey="user" path="results" />
 
 <ModalContainer {openModal} url={'/home'}>
 	<CreatePollModal />
 </ModalContainer>
+
+<style>
+	div.hero {
+		min-height: calc(100vh - 64px);
+	}
+</style>
