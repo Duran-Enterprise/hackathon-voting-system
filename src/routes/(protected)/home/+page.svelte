@@ -44,11 +44,13 @@
 			<h1 class="text-5xl font-bold">
 				Good{getGreeting()}, {data.verifiedUser.username.toUpperCase()}!
 			</h1>
-			<p class="pt-6">Your quote for the day</p>
-			<p class="pb-6">
-				{quote.text}
-				{quote.author}
-			</p>
+			<p class="font-bold pt-6">Your quote for the day</p>
+			<div class="w-full p-4 bg-gray-700 border-l-4 border-slate-300">
+				<p class=" text-2xl italic pb-2 max-w-2xl">
+					{quote.text}
+				</p>
+				<p class="text-sm text-gray-200 pb-4">{quote.author}</p>
+			</div>
 			<a
 				href="home?new=true"
 				role="button"
