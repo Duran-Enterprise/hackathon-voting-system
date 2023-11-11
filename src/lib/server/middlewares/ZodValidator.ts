@@ -21,7 +21,6 @@ export function validateNewPoll(newPoll: newPoll): DefaultResponse {
 			data: newPoll
 		});
 	} catch (error) {
-		console.log({ error });
 		return errorGenerator(error);
 	}
 }
