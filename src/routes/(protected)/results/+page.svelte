@@ -2,7 +2,7 @@
 	import SectionTitle from '@components/layout/SectionTitle.svelte';
 	import type { PageServerData } from './$types';
 	import type { PollWithVoteCount } from '@/types/index';
-	import { fly, slide } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import Result from '@components/Result.svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
