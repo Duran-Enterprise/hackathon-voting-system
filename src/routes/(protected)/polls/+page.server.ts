@@ -39,6 +39,6 @@ export const actions: Actions = {
 		if (data.status === 'fail') {
 			throw redirect(302, `/polls?voted=fail&message=${data.message}`);
 		}
-		throw redirect(302, '/polls?voted=success');
+		throw redirect(302, '/polls?voted=success&message=Voted successfully');
 	}
 };

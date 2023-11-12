@@ -21,10 +21,10 @@
 
 	let sortedPolls = pollsListSorter(data.polls);
 	let sortedPollsWithCount = CountVotesToPolls(sortedPolls) as PollWithStatus[];
-	$: pollId = new URL($page.url).searchParams.get('id');
-	$: vote = new URL($page.url).searchParams.get('voted');
-	$: created = new URL($page.url).searchParams.get('created');
-	$: message = new URL($page.url).searchParams.get('message');
+	$: pollId = $page.url.searchParams.get('id');
+	$: vote = $page.url.searchParams.get('voted');
+	$: created = $page.url.searchParams.get('created');
+	$: message = $page.url.searchParams.get('message');
 	$: {
 		if (pollId) {
 			poll = sortedPollsWithCount.find((poll) => poll._id === pollId);
@@ -32,6 +32,8 @@
 		} else {
 			openModal = false;
 		}
+	}
+	$: {
 		if ((vote && message) || (created && message)) {
 			let options;
 			if (vote === 'success' || created) {

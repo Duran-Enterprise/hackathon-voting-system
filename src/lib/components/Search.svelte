@@ -1,7 +1,18 @@
 <script lang="ts">
 	import type { Writable } from 'svelte/store';
 
+	let timeoutId: string | number | NodeJS.Timeout | undefined;
+
 	export let searchString: Writable<string>;
+	function debounce(event: KeyboardEvent) {
+		const { value } = event.target as HTMLInputElement;
+		clearTimeout(timeoutId);
+
+		timeoutId = setTimeout(() => {
+			console.log({ value });
+			searchString.set(value);
+		}, 500);
+	}
 </script>
 
 <section class="search opacity-40 hover:opacity-100 p-4">
@@ -32,7 +43,7 @@
 			class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 			placeholder="Search polls..."
 			title="Search keywords in either title or description..."
-			bind:value={$searchString}
+			on:keyup={debounce}
 		/>
 	</div>
 </section>

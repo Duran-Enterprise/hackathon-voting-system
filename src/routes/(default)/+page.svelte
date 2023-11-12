@@ -12,7 +12,7 @@
 				Join us in shaping the future! Our cutting-edge voting platform is designed to make your
 				opinions count.
 			</p>
-			<a href="login" class="btn btn-neutral">Get Started</a>
+			<a href="/login" class="btn btn-neutral">Get Started</a>
 		</div>
 	</div>
 </div>

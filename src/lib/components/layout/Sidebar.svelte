@@ -1,11 +1,9 @@
 <script lang="ts">
 	import type { DiscordUser } from '@/types/index';
 	import { getAvatarLink } from '@utils/index';
-	import home from '$lib/assets/home.svg';
-	import polls from '$lib/assets/polls.svg';
-	import results from '$lib/assets/results.svg';
 	import logout from '$lib/assets/logout.svg';
 	import { Button, Dialog, Toggle } from 'svelte-ux';
+	import SidebarMenu from './SidebarMenu.svelte';
 	export let user: DiscordUser;
 </script>
 
@@ -18,21 +16,7 @@
 	</div>
 	<h4 class="text-center uppercase mb-4 text-lightWhite">{user.username}</h4>
 
-	<li>
-		<a class="text-lg gap-4 text-lightWhite" href="/home"
-			><img src={home} alt="home icon" width="15" height="15" />Home</a
-		>
-	</li>
-	<li>
-		<a class="text-lg gap-4 text-lightWhite" href="/polls"
-			><img src={polls} alt="polls icon" width="15" height="15" />Polls</a
-		>
-	</li>
-	<li>
-		<a class="text-lg gap-4 text-lightWhite" href="/results"
-			><img src={results} alt="results icon" width="15" height="15" />Results</a
-		>
-	</li>
+	<SidebarMenu />
 	<div class="divider my-4" />
 	<li class="mt-auto">
 		<Toggle let:on={open} let:toggle>

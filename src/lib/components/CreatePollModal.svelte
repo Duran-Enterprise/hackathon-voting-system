@@ -5,8 +5,8 @@
 	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
 	import { toast } from '@zerodevx/svelte-toast';
+	import type { SvelteToastOptions } from '@zerodevx/svelte-toast/stores';
 
-	let createPollForm: HTMLFormElement;
 	let pollDescription = '';
 	let today = new Date();
 	const sevenDaysLater = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
@@ -36,7 +36,7 @@
 		}
 		choices = choices.filter((_, i) => i !== index);
 	}
-	const options = {
+	const options: SvelteToastOptions = {
 		theme: { '--toastBackground': ' #FF6F61', '--toastBarBackground': '#DC143C' },
 		duration: 6900
 	};
@@ -75,7 +75,6 @@
 </script>
 
 <form
-	bind:this={createPollForm}
 	class="modalForm max-h-[80vh] overflow-y-auto"
 	method="post"
 	action="?/createPoll"

@@ -2,7 +2,7 @@
 	import SectionTitle from '@components/layout/SectionTitle.svelte';
 	import type { PageServerData } from './$types';
 	import type { PollWithVoteCount } from '@/types/index';
-	import { slide } from 'svelte/transition';
+	import { fly, slide } from 'svelte/transition';
 	import Result from '@components/Result.svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -11,6 +11,7 @@
 	import { searchResults } from '$lib/stores';
 	import { CountVotesToPolls, shufflePolls } from '@utils/index';
 	import TransparentBackground from '@components/layout/TransparentBackground.svelte';
+	import { quadInOut } from 'svelte/easing';
 	export let data: PageServerData;
 	let poll: PollWithVoteCount | undefined;
 	let polls = data.polls;
@@ -39,16 +40,12 @@
 	<Search searchString={searchResults} />
 	<section
 		class="flex flex-row justify-evenly flex-wrap relative
-h-[calc(100vh-280px)] mt-1 overflow-y-auto"
+h-[calc(100vh-320px)] mt-1 overflow-y-auto gap-2 p-4"
 	>
 		{#each filteredPolls as poll (poll._id)}
 			<div
-				class="box bg-darkBlack p-4 rounded-lg shadow-lg my-4 w-[350px] min-h-[280px] flex flex-col justify-around"
-				transition:slide={{
-					duration: 300,
-					delay: 100,
-					axis: 'x'
-				}}
+				class="box bg-darkBlack p-4 rounded-lg shadow-lg my-4 w-[350px] h-[280px] flex flex-col justify-around"
+				transition:fly={{ y: 20, duration: 500, easing: quadInOut }}
 			>
 				<h1 class="h-[72px] max-h[72px] text-3xl font-semibold text-white mb-4">{poll.title}</h1>
 				<p class="max-w-[320px] truncate text-white mb-4">{poll.pollDescription}</p>

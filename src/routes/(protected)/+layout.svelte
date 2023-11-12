@@ -4,6 +4,7 @@
 	import { AppBar, AppLayout } from 'svelte-ux';
 	import { page } from '$app/stores';
 	import { fly } from 'svelte/transition';
+	import SidebarMenu from '@components/layout/SidebarMenu.svelte';
 	export let data: LayoutServerData;
 	let user = data.verifiedUser;
 	$: route =
@@ -29,3 +30,9 @@
 		{/key}
 	</main>
 </AppLayout>
+<div class="dropdown dropdown-top dropdown-end fixed right-4 bottom-4 z-30 dropdown-hover">
+	<button tabindex="0" class="btn m-1 rounded-full">-</button>
+	<button tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+		<SidebarMenu classes="w-full" />
+	</button>
+</div>
