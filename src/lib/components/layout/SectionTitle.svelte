@@ -4,6 +4,6 @@
 </script>
 
 <div class="mr-auto mt-14">
-	<h1 class={h1Class}>{sectionName}</h1>
+	<h1 class={h1Class}>{sectionName.toUpperCase()}</h1>
 	<div class="divider" />
 </div>
