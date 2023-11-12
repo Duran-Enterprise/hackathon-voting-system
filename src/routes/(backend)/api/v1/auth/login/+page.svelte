@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	let messageFromServer = '';
@@ -21,7 +21,8 @@
 					goto('/login');
 				}
 				if (data.status === 'success') {
-					goto('/home', { invalidateAll: false });
+					const path = data.data.lastPath ?? '/home';
+					goto(path, { invalidateAll: false });
 				}
 			})
 			.catch((error) => {
