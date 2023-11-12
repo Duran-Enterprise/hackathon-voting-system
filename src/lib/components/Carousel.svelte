@@ -37,7 +37,9 @@
 							alt="Random things, lol"
 						/>
 					</figure>
-					<div class="bg-card card-body mx-auto w-[42rem] max-w-2xl minmax-height">
+					<div
+						class=" bg-card card-body mx-auto w-full sm:w-[min(80vw,42rem)] max-w-2xl minmax-height"
+					>
 						<h2 class="card-title text-shadow text-white mb-2 text-balance text-3xl">
 							{poll.title}
 						</h2>
@@ -46,7 +48,7 @@
 							<Date classes="inline" color="#cbd5e1" />
 							{formatDate(poll.startDate)} to {formatDate(poll.endDate)}
 						</p>
-						<div class="card-actions justify-end">
+						<div class="card-actions md:justify-end justify-start">
 							<a href="/{path}?id={poll._id}" role="button" class="btn btn-primary">See Details</a>
 						</div>
 					</div>
