@@ -2,6 +2,6 @@
 	export let classes = '';
 </script>
 
-<div class={'transparent' + classes}>
+<div class={'transparent ' + classes}>
 	<slot />
 </div>
