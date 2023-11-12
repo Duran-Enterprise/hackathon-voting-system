@@ -2,7 +2,6 @@
 	import SectionTitle from '@components/layout/SectionTitle.svelte';
 	import VotePollModal from '@components/VotePollModal.svelte';
 	import { toast } from '@zerodevx/svelte-toast';
-	import type { Poll } from '@/types/index';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 	import ModalContainer from '@components/ModalContainer.svelte';
@@ -14,9 +13,10 @@
 		type PollWithStatus
 	} from '@utils/index';
 	import TransparentBackground from '@components/layout/TransparentBackground.svelte';
+	import { goto } from '$app/navigation';
 
 	export let data: PageServerData;
-	let poll: Poll | undefined;
+	let poll: PollWithStatus | undefined;
 	let openModal = false;
 
 	let sortedPolls = pollsListSorter(data.polls);
@@ -27,7 +27,7 @@
 	$: message = new URL($page.url).searchParams.get('message');
 	$: {
 		if (pollId) {
-			poll = data.polls.find((poll: Poll) => poll._id === pollId);
+			poll = sortedPollsWithCount.find((poll) => poll._id === pollId);
 			openModal = true;
 		} else {
 			openModal = false;
@@ -73,7 +73,10 @@
 								>{poll.title}</a
 							></td
 						>
-						<td class="text-center flex justify-center gap-2">
+						<td
+							class="text-center flex justify-center gap-2"
+							on:dblclick={() => goto(`/polls?id=${poll._id}`)}
+						>
 							<p
 								class={`badge` +
 									(poll.status === PollStatus.ACTIVE
