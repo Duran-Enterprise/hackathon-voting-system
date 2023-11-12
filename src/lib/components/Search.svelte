@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Writable } from 'svelte/store';
 
+	// eslint-disable-next-line
 	let timeoutId: string | number | NodeJS.Timeout | undefined;
 
 	export let searchString: Writable<string>;
