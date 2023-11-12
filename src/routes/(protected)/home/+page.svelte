@@ -30,22 +30,22 @@
 	}
 </script>
 
-<div class="hero">
-	<div class="hero-content flex-col lg:flex-row">
+<TransparentBackground classes="p-4">
+	<div class="hero-content flex-col lg:flex-row mt-4">
 		<div class="avatar lg:mr-6">
 			<div class="w-[200px] rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
 				<img src={getAvatarLink(data.verifiedUser)} alt="avatar" width="200" height="200" />
 			</div>
 		</div>
 		<div>
-			<h1 class="text-xl sm:text-2xl lg:text-5xl font-bold text-center">
+			<h1 class="text-xl sm:text-2xl lg:text-5xl font-bold text-center lg:text-left">
 				Good{getGreeting()}, {data.verifiedUser.username.toUpperCase()}!
 			</h1>
 			<p class="lg:text-left pl-0 lg:pl-2 text-center mt-1.5 mb-4 text-sm text-gray-500">
 				Let's start voting!🎉
 			</p>
 			<div class="flex lg:justify-start justify-center flex-col lg:flex-row">
-				<a class=" text-sm lg:text-left lg:text-md btn bg-transparent mt-4" href="/polls"
+				<a class="border-none text-sm lg:text-left lg:text-md btn bg-transparent mt-4" href="/polls"
 					>Start Voting</a
 				>
 				<a
@@ -57,9 +57,7 @@
 			</div>
 		</div>
 	</div>
-</div>
-<TransparentBackground classes="p-4">
-	<SectionTitle sectionName="Featured Polls" />
+	<SectionTitle sectionName="Featured Polls" divClass="mt-4" />
 	<Carousel data={data.featuredPolls} uniqueKey="featured" />
 
 	<SectionTitle sectionName="Voted polls" />
@@ -71,7 +69,4 @@
 </TransparentBackground>
 
 <style>
-	div.hero {
-		min-height: calc(100vh - 64px);
-	}
 </style>
