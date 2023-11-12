@@ -58,19 +58,23 @@
 <TransparentBackground>
 	<section class="relative h-[calc(100vh-280px)] mt-1 overflow-y-auto p-4">
 		<table class=" table-auto w-full">
-			<thead
+			<thead class="h-6 align-top border-b-2 border-lightGray"
 				><tr>
-					<th class="text-left"><h4>Title</h4></th>
-					<th><h4>Status</h4></th>
-					<th><h4>Vote count</h4></th>
-					<th><h4>Date range</h4></th>
+					<th class="text-left text-gray-200"><h4>Title</h4></th>
+					<th class="text-gray-200"><h4>Status</h4></th>
+					<th class="text-gray-200"><h4>Vote count</h4></th>
+					<th class="text-gray-200"><h4>Date range</h4></th>
 				</tr>
-			</thead><tbody>
+			</thead>
+			<div class="m-2" />
+			<tbody>
 				{#each sortedPollsWithCount as poll}
-					<tr class="hover:bg-lightGray" title={poll.pollDescription}>
+					<tr class="h-8 hover:bg-lightGray" title={poll.pollDescription}>
 						<td
-							><a class="hover:font-normal" href={`polls?id=${poll._id}`} role="button"
-								>{poll.title}</a
+							><a
+								class="text-gray-300 hover:font-normal"
+								href={`polls?id=${poll._id}`}
+								role="button">{poll.title}</a
 							></td
 						>
 						<td
@@ -90,12 +94,14 @@
 								{poll.status}
 							</p>
 							{#if poll.choices.some( (choice) => choice.voters.includes(data.verifiedUser.username) )}
-								<p class="badge badge-primary bg-primary">voted</p>
+								<p class="text-gray-100 badge badge-primary bg-primary">voted</p>
 							{/if}
 						</td>
 
-						<td class="text-center">{poll.voteCount}</td>
-						<td class="text-center"> {formatDate(poll.startDate)} - {formatDate(poll.endDate)}</td>
+						<td class="text-center text-gray-300">{poll.voteCount}</td>
+						<td class="text-center text-gray-300">
+							{formatDate(poll.startDate)} - {formatDate(poll.endDate)}</td
+						>
 					</tr>
 				{/each}
 			</tbody>
