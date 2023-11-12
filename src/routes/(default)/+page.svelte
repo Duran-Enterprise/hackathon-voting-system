@@ -13,6 +13,14 @@
 				opinions count.
 			</p>
 			<a href="/login" class="btn btn-neutral">Get Started</a>
+			<a href="/#publicPolls" class="btn btn-neutral">See publicly available polls</a>
 		</div>
 	</div>
 </div>
+<iframe
+	id="publicPolls"
+	src="/public/results"
+	frameborder="0"
+	class="w-full h-screen"
+	title="Public polls"
+/>
