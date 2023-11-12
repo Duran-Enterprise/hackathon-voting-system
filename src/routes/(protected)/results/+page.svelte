@@ -2,7 +2,7 @@
 	import SectionTitle from '@components/layout/SectionTitle.svelte';
 	import type { PageServerData } from './$types';
 	import type { PollWithVoteCount } from '@/types/index';
-	import { fly, slide } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 	import Result from '@components/Result.svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -14,7 +14,7 @@
 	let poll: PollWithVoteCount | undefined;
 	let polls = data.polls;
 	let openModal = false;
-	const pollWithVotes = CountVotesToPolls(polls);
+	const pollWithVotes = CountVotesToPolls(polls) as PollWithVoteCount[];
 	const shuffledPollsWithVotes: PollWithVoteCount[] = shufflePolls(pollWithVotes);
 
 	$: filteredPolls = shuffledPollsWithVotes.filter(

@@ -6,14 +6,20 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 	import ModalContainer from '@components/ModalContainer.svelte';
-	import { CountVotesToPolls, pollsListSorter } from '@utils/index';
+	import {
+		CountVotesToPolls,
+		formatDate,
+		pollsListSorter,
+		PollStatus,
+		type PollWithStatus
+	} from '@utils/index';
 
 	export let data: PageServerData;
 	let poll: Poll | undefined;
 	let openModal = false;
 
 	let sortedPolls = pollsListSorter(data.polls);
-	let sortedPollsWithCount = CountVotesToPolls(sortedPolls);
+	let sortedPollsWithCount = CountVotesToPolls(sortedPolls) as PollWithStatus[];
 	$: pollId = new URL($page.url).searchParams.get('id');
 	$: vote = new URL($page.url).searchParams.get('voted');
 	$: created = new URL($page.url).searchParams.get('created');
@@ -48,14 +54,14 @@
 </script>
 
 <SectionTitle sectionName="Polls" />
-<section class="relative h-[calc(100vh-280px)] mt-1 overflow-y-auto">
+<section class="relative transparentBackground h-[calc(100vh-280px)] mt-1 overflow-y-auto p-4">
 	<table class=" table-auto w-full">
 		<thead
 			><tr>
 				<th class="text-left"><h4>Title</h4></th>
+				<th><h4>Status</h4></th>
 				<th><h4>Vote count</h4></th>
-				<th><h4>Start date</h4></th>
-				<th><h4>End date</h4></th>
+				<th><h4>Date range</h4></th>
 			</tr>
 		</thead><tbody>
 			{#each sortedPollsWithCount as poll}
@@ -65,9 +71,26 @@
 							>{poll.title}</a
 						></td
 					>
+					<td class="text-center flex justify-center gap-2">
+						<p
+							class={`badge` +
+								(poll.status === PollStatus.ACTIVE
+									? ' badge-success'
+									: poll.status === PollStatus.UPCOMING
+									? ' badge-warning'
+									: poll.status === PollStatus.EXPIRED
+									? ' badge-error'
+									: '')}
+						>
+							{poll.status}
+						</p>
+						{#if poll.choices.some((choice) => choice.voters.includes(data.verifiedUser.username))}
+							<p class="badge badge-primary bg-primary">voted</p>
+						{/if}
+					</td>
+
 					<td class="text-center">{poll.voteCount}</td>
-					<td class="text-center">{String(poll.startDate).split('T')[0]}</td>
-					<td class="text-center">{String(poll.endDate).split('T')[0]}</td>
+					<td class="text-center"> {formatDate(poll.startDate)} - {formatDate(poll.endDate)}</td>
 				</tr>
 			{/each}
 		</tbody>
