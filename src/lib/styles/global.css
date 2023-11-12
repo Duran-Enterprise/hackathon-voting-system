@@ -95,4 +95,5 @@ body .collapse-title,
 	border-radius: 15px;
 	padding: 1rem;
 	opacity: 10%;
+	z-index: -1;
 }
