@@ -28,12 +28,13 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		secure: true,
 		maxAge: TOKEN_EXPIRATION
 	});
-
+	const lastPath = cookies.get('lastPath');
 	return json(
 		responseGenerator({
 			status: 'success',
 			data: {
-				verifiedUser
+				verifiedUser,
+				lastPath
 			},
 			message: 'Successfully authenticated'
 		})

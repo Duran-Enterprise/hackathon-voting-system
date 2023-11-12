@@ -184,7 +184,11 @@ export function sortByDate(a: Poll, b: Poll, order: 'asc' | 'desc' = 'asc') {
 	return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
 }
 
-export type PollWithStatus = Poll & { status: PollStatus };
+export type PollWithStatus = Poll & {
+	status: PollStatus;
+	voteCount?: number;
+	maxVoteCount?: number;
+};
 
 export function pollsListSorter(polls: Poll[]) {
 	const finalList: PollWithStatus[] = [];
@@ -217,7 +221,7 @@ export function pollsListSorter(polls: Poll[]) {
 	return finalList;
 }
 
-export function CountVotesToPolls(polls: Poll[]) {
+export function CountVotesToPolls(polls: Poll[]): PollWithVoteCount[] | PollWithStatus[] {
 	return polls.map((poll) => {
 		const voteCount = poll.choices.reduce((count, choice) => count + choice.voters.length, 0);
 		const maxVoteCount = Math.max(...poll.choices.map((choice) => choice.voters.length));
@@ -234,5 +238,16 @@ export function shufflePolls(pollWithVotes: PollWithVoteCount[]) {
 			[shuffledChoices[i], shuffledChoices[j]] = [shuffledChoices[j], shuffledChoices[i]];
 		}
 		return { ...poll, choices: shuffledChoices };
+	});
+}
+
+export function formatDate(date: Date | string) {
+	if (typeof date === 'string') {
+		date = new Date(date);
+	}
+	return date.toLocaleDateString('en-US', {
+		day: 'numeric',
+		month: '2-digit',
+		year: '2-digit'
 	});
 }

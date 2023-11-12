@@ -22,7 +22,6 @@ export const actions: Actions = {
 			pollId: string;
 			choice: string;
 		};
-		console.log({ pollId, choice });
 		const data = await fetch(`/api/v1/polls/${pollId}/vote`, {
 			method: 'PATCH',
 			headers: {

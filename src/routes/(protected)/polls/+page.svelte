@@ -2,25 +2,32 @@
 	import SectionTitle from '@components/layout/SectionTitle.svelte';
 	import VotePollModal from '@components/VotePollModal.svelte';
 	import { toast } from '@zerodevx/svelte-toast';
-	import type { Poll } from '@/types/index';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 	import ModalContainer from '@components/ModalContainer.svelte';
-	import { CountVotesToPolls, pollsListSorter } from '@utils/index';
+	import {
+		CountVotesToPolls,
+		formatDate,
+		pollsListSorter,
+		PollStatus,
+		type PollWithStatus
+	} from '@utils/index';
+	import TransparentBackground from '@components/layout/TransparentBackground.svelte';
+	import { goto } from '$app/navigation';
 
 	export let data: PageServerData;
-	let poll: Poll | undefined;
+	let poll: PollWithStatus | undefined;
 	let openModal = false;
 
 	let sortedPolls = pollsListSorter(data.polls);
-	let sortedPollsWithCount = CountVotesToPolls(sortedPolls);
+	let sortedPollsWithCount = CountVotesToPolls(sortedPolls) as PollWithStatus[];
 	$: pollId = new URL($page.url).searchParams.get('id');
 	$: vote = new URL($page.url).searchParams.get('voted');
 	$: created = new URL($page.url).searchParams.get('created');
 	$: message = new URL($page.url).searchParams.get('message');
 	$: {
 		if (pollId) {
-			poll = data.polls.find((poll: Poll) => poll._id === pollId);
+			poll = sortedPollsWithCount.find((poll) => poll._id === pollId);
 			openModal = true;
 		} else {
 			openModal = false;
@@ -48,32 +55,53 @@
 </script>
 
 <SectionTitle sectionName="Polls" />
-<section class="relative h-[calc(100vh-280px)] mt-1 overflow-y-auto">
-	<table class=" table-auto w-full">
-		<thead
-			><tr>
-				<th class="text-left"><h4>Title</h4></th>
-				<th><h4>Vote count</h4></th>
-				<th><h4>Start date</h4></th>
-				<th><h4>End date</h4></th>
-			</tr>
-		</thead><tbody>
-			{#each sortedPollsWithCount as poll}
-				<tr class="hover:bg-lightGray" title={poll.pollDescription}>
-					<td
-						><a class="hover:font-normal" href={`polls?id=${poll._id}`} role="button"
-							>{poll.title}</a
-						></td
-					>
-					<td class="text-center">{poll.voteCount}</td>
-					<td class="text-center">{String(poll.startDate).split('T')[0]}</td>
-					<td class="text-center">{String(poll.endDate).split('T')[0]}</td>
+<TransparentBackground>
+	<section class="relative h-[calc(100vh-280px)] mt-1 overflow-y-auto p-4">
+		<table class=" table-auto w-full">
+			<thead
+				><tr>
+					<th class="text-left"><h4>Title</h4></th>
+					<th><h4>Status</h4></th>
+					<th><h4>Vote count</h4></th>
+					<th><h4>Date range</h4></th>
 				</tr>
-			{/each}
-		</tbody>
-	</table>
-</section>
+			</thead><tbody>
+				{#each sortedPollsWithCount as poll}
+					<tr class="hover:bg-lightGray" title={poll.pollDescription}>
+						<td
+							><a class="hover:font-normal" href={`polls?id=${poll._id}`} role="button"
+								>{poll.title}</a
+							></td
+						>
+						<td
+							class="text-center flex justify-center gap-2"
+							on:dblclick={() => goto(`/polls?id=${poll._id}`)}
+						>
+							<p
+								class={`badge` +
+									(poll.status === PollStatus.ACTIVE
+										? ' badge-success'
+										: poll.status === PollStatus.UPCOMING
+										? ' badge-warning'
+										: poll.status === PollStatus.EXPIRED
+										? ' badge-error'
+										: '')}
+							>
+								{poll.status}
+							</p>
+							{#if poll.choices.some( (choice) => choice.voters.includes(data.verifiedUser.username) )}
+								<p class="badge badge-primary bg-primary">voted</p>
+							{/if}
+						</td>
 
+						<td class="text-center">{poll.voteCount}</td>
+						<td class="text-center"> {formatDate(poll.startDate)} - {formatDate(poll.endDate)}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</section>
+</TransparentBackground>
 <ModalContainer {openModal} url={'/polls'}>
 	{#if pollId}
 		<VotePollModal {poll} username={data.verifiedUser.username} />

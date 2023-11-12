@@ -10,11 +10,12 @@
 	import Search from '@components/Search.svelte';
 	import { searchResults } from '$lib/stores';
 	import { CountVotesToPolls, shufflePolls } from '@utils/index';
+	import TransparentBackground from '@components/layout/TransparentBackground.svelte';
 	export let data: PageServerData;
 	let poll: PollWithVoteCount | undefined;
 	let polls = data.polls;
 	let openModal = false;
-	const pollWithVotes = CountVotesToPolls(polls);
+	const pollWithVotes = CountVotesToPolls(polls) as PollWithVoteCount[];
 	const shuffledPollsWithVotes: PollWithVoteCount[] = shufflePolls(pollWithVotes);
 
 	$: filteredPolls = shuffledPollsWithVotes.filter(
@@ -34,50 +35,52 @@
 </script>
 
 <SectionTitle sectionName="Results" />
-<Search searchString={searchResults} />
-<section
-	class="flex flex-row justify-evenly flex-wrap relative
+<TransparentBackground>
+	<Search searchString={searchResults} />
+	<section
+		class="flex flex-row justify-evenly flex-wrap relative
 h-[calc(100vh-280px)] mt-1 overflow-y-auto"
->
-	{#each filteredPolls as poll (poll._id)}
-		<div
-			class="box bg-darkBlack p-4 rounded-lg shadow-lg my-4 w-[350px] min-h-[280px] flex flex-col justify-around"
-			transition:slide={{
-				duration: 300,
-				delay: 100,
-				axis: 'x'
-			}}
-		>
-			<h1 class="h-[72px] max-h[72px] text-3xl font-semibold text-white mb-4">{poll.title}</h1>
-			<p class="max-w-[320px] truncate text-white mb-4">{poll.pollDescription}</p>
-			<div class="flex w-full justify-evenly min-h-16 align-baseline relative" role="list">
-				{#each poll.choices as choice (choice)}
-					<div class="relative rounded-full -translate-y-[-100%]" role="listitem">
-						<div
-							class={`mt-auto w-2 bg-gradient-to-r from-emerald-400
+	>
+		{#each filteredPolls as poll (poll._id)}
+			<div
+				class="box bg-darkBlack p-4 rounded-lg shadow-lg my-4 w-[350px] min-h-[280px] flex flex-col justify-around"
+				transition:slide={{
+					duration: 300,
+					delay: 100,
+					axis: 'x'
+				}}
+			>
+				<h1 class="h-[72px] max-h[72px] text-3xl font-semibold text-white mb-4">{poll.title}</h1>
+				<p class="max-w-[320px] truncate text-white mb-4">{poll.pollDescription}</p>
+				<div class="flex w-full justify-evenly min-h-16 align-baseline relative" role="list">
+					{#each poll.choices as choice (choice)}
+						<div class="relative rounded-full -translate-y-[-100%]" role="listitem">
+							<div
+								class={`mt-auto w-2 bg-gradient-to-r from-emerald-400
 							 via-emerald-500 to-emerald-600 dark:from-blue-400
 							  dark:via-blue-500 dark:to-blue-600 rounded-full
 							   -translate-y-[100%] `}
-							style="height: {(choice.voters.length / poll.maxVoteCount) * 90 + 10}%"
-						/>
-					</div>
-				{/each}
-			</div>
+								style="height: {(choice.voters.length / poll.maxVoteCount) * 90 + 10}%"
+							/>
+						</div>
+					{/each}
+				</div>
 
-			<a
-				class="btn mt-4 btn-block hover-primary"
-				href="results?id={poll._id}"
-				role="button"
-				on:click={() => goto('results?id=' + poll._id)}>Reveal Results</a
-			>
-		</div>
-	{/each}
-	<ModalContainer {openModal} url={'/results'}>
-		{#if pollId && poll}
-			<Result {poll} />
-		{/if}
-	</ModalContainer>
-</section>
+				<a
+					class="btn mt-4 btn-block hover-primary"
+					href="results?id={poll._id}"
+					role="button"
+					on:click={() => goto('results?id=' + poll._id)}>Reveal Results</a
+				>
+			</div>
+		{/each}
+		<ModalContainer {openModal} url={'/results'}>
+			{#if pollId && poll}
+				<Result {poll} />
+			{/if}
+		</ModalContainer>
+	</section>
+</TransparentBackground>
 
 <style>
 	@property --angle {
