@@ -7,6 +7,7 @@
 	import { goto } from '$app/navigation';
 	import ModalContainer from '@components/ModalContainer.svelte';
 	import Carousel from '@components/Carousel.svelte';
+	import TransparentBackground from '@components/layout/TransparentBackground.svelte';
 	export let data: PageServerData;
 	let openModal = false;
 	$: newPoll = new URL($page.url).searchParams.get('new');
@@ -61,16 +62,17 @@
 		</div>
 	</div>
 </div>
+<TransparentBackground classes="p-4">
+	<SectionTitle sectionName="Featured Polls" />
+	<Carousel data={data.featuredPolls} uniqueKey="featured" />
 
-<SectionTitle sectionName="Featured Polls" />
-<Carousel data={data.featuredPolls} uniqueKey="featured" />
+	<SectionTitle sectionName="Voted polls" />
+	<Carousel data={data.userPolls} uniqueKey="user" path="results" />
 
-<SectionTitle sectionName="Voted polls" />
-<Carousel data={data.userPolls} uniqueKey="user" path="results" />
-
-<ModalContainer {openModal} url={'/home'}>
-	<CreatePollModal />
-</ModalContainer>
+	<ModalContainer {openModal} url={'/home'}>
+		<CreatePollModal />
+	</ModalContainer>
+</TransparentBackground>
 
 <style>
 	div.hero {
