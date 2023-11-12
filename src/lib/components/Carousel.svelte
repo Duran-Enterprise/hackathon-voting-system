@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { formatDate } from '@utils/index';
 	import type { Poll } from '../types';
 	import Date from './SVGs/Date.svelte';
 
@@ -41,9 +42,9 @@
 							{poll.title}
 						</h2>
 						<p class="text-slate-300 text-xl text-shadow">{truncate(poll.pollDescription)}</p>
-						<p class="text-shadow">
+						<p class="text-shadow badge badge-outline">
 							<Date classes="inline" color="#cbd5e1" />
-							{String(poll.startDate).split('T')[0]} to {String(poll.endDate).split('T')[0]}
+							{formatDate(poll.startDate)} to {formatDate(poll.endDate)}
 						</p>
 						<div class="card-actions justify-end">
 							<a href="/{path}?id={poll._id}" role="button" class="btn btn-primary">See Details</a>
