@@ -16,6 +16,7 @@ export function responseGenerator(response: DefaultResponse): DefaultResponse {
 export function deleteCookies(cookies: Cookies) {
 	try {
 		cookies.delete('token');
+		cookies.delete('lastPath');
 	} catch (err) {
 		//
 	}

@@ -17,7 +17,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 				path: '/',
 				httpOnly: true,
 				sameSite: 'lax',
-				secure: false
+				secure: false,
+				maxAge: 60 * 5
 			});
 			throw redirect(302, '/login');
 		}

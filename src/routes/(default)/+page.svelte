@@ -13,7 +13,11 @@
 				opinions count.
 			</p>
 			<a href="/login" class="btn btn-neutral">Get Started</a>
-			<a href="/#publicPolls" class="btn btn-neutral">See publicly available polls</a>
+			<a
+				href="/#publicPolls"
+				class="btn btn-neutral"
+				title="Publicly available polls, login to vote">See public polls</a
+			>
 		</div>
 	</div>
 </div>
@@ -22,5 +26,5 @@
 	src="/public/results"
 	frameborder="0"
 	class="w-full h-screen"
-	title="Public polls"
+	title="Publicly available polls, login to vote"
 />
