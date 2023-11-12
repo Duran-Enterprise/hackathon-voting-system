@@ -13,6 +13,7 @@
 		PollStatus,
 		type PollWithStatus
 	} from '@utils/index';
+	import TransparentBackground from '@components/layout/TransparentBackground.svelte';
 
 	export let data: PageServerData;
 	let poll: Poll | undefined;
@@ -54,49 +55,50 @@
 </script>
 
 <SectionTitle sectionName="Polls" />
-<section class="relative transparentBackground h-[calc(100vh-280px)] mt-1 overflow-y-auto p-4">
-	<table class=" table-auto w-full">
-		<thead
-			><tr>
-				<th class="text-left"><h4>Title</h4></th>
-				<th><h4>Status</h4></th>
-				<th><h4>Vote count</h4></th>
-				<th><h4>Date range</h4></th>
-			</tr>
-		</thead><tbody>
-			{#each sortedPollsWithCount as poll}
-				<tr class="hover:bg-lightGray" title={poll.pollDescription}>
-					<td
-						><a class="hover:font-normal" href={`polls?id=${poll._id}`} role="button"
-							>{poll.title}</a
-						></td
-					>
-					<td class="text-center flex justify-center gap-2">
-						<p
-							class={`badge` +
-								(poll.status === PollStatus.ACTIVE
-									? ' badge-success'
-									: poll.status === PollStatus.UPCOMING
-									? ' badge-warning'
-									: poll.status === PollStatus.EXPIRED
-									? ' badge-error'
-									: '')}
-						>
-							{poll.status}
-						</p>
-						{#if poll.choices.some((choice) => choice.voters.includes(data.verifiedUser.username))}
-							<p class="badge badge-primary bg-primary">voted</p>
-						{/if}
-					</td>
-
-					<td class="text-center">{poll.voteCount}</td>
-					<td class="text-center"> {formatDate(poll.startDate)} - {formatDate(poll.endDate)}</td>
+<TransparentBackground>
+	<section class="relative h-[calc(100vh-280px)] mt-1 overflow-y-auto p-4">
+		<table class=" table-auto w-full">
+			<thead
+				><tr>
+					<th class="text-left"><h4>Title</h4></th>
+					<th><h4>Status</h4></th>
+					<th><h4>Vote count</h4></th>
+					<th><h4>Date range</h4></th>
 				</tr>
-			{/each}
-		</tbody>
-	</table>
-</section>
+			</thead><tbody>
+				{#each sortedPollsWithCount as poll}
+					<tr class="hover:bg-lightGray" title={poll.pollDescription}>
+						<td
+							><a class="hover:font-normal" href={`polls?id=${poll._id}`} role="button"
+								>{poll.title}</a
+							></td
+						>
+						<td class="text-center flex justify-center gap-2">
+							<p
+								class={`badge` +
+									(poll.status === PollStatus.ACTIVE
+										? ' badge-success'
+										: poll.status === PollStatus.UPCOMING
+										? ' badge-warning'
+										: poll.status === PollStatus.EXPIRED
+										? ' badge-error'
+										: '')}
+							>
+								{poll.status}
+							</p>
+							{#if poll.choices.some( (choice) => choice.voters.includes(data.verifiedUser.username) )}
+								<p class="badge badge-primary bg-primary">voted</p>
+							{/if}
+						</td>
 
+						<td class="text-center">{poll.voteCount}</td>
+						<td class="text-center"> {formatDate(poll.startDate)} - {formatDate(poll.endDate)}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</section>
+</TransparentBackground>
 <ModalContainer {openModal} url={'/polls'}>
 	{#if pollId}
 		<VotePollModal {poll} username={data.verifiedUser.username} />
