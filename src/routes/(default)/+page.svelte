@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
+	import heroBackground from '$lib/assets/heroBackground.webp';
 </script>
 
-<div class="hero min-h-screen" style="background-image: url(/src/lib/assets/heroBackground.jpg);">
+<div class="hero min-h-screen" style="background-image: url({heroBackground});">
 	<div class="hero-overlay bg-opacity-60" />
 	<div class="hero-content text-center text-neutral-content">
 		<div class="max-w-lg">
